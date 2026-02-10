@@ -20,6 +20,9 @@
 		},
 		{
 			"path": "../OFM-FunctionBlocks"
+		},
+		{
+			"path": "../OFM-FileTransferModule"
 		}
 	],
 	"settings": {
