@@ -14,19 +14,19 @@
 #define ETS_ModuleId_SHC 3
 #define ETS_ModuleId_LOG 4
 #define ETS_ModuleId_FCB 5
-#define MAIN_FirmwareName "Jalousiensteuerung (Beta)"
+#define MAIN_FirmwareName "Jalousiensteuerung"
 #define MAIN_OpenKnxId 0xAE
 #define MAIN_ApplicationNumber 50
 #define MAIN_ApplicationVersion 21
-#define MAIN_FirmwareRevision 0
+#define MAIN_FirmwareRevision 1
 #define MAIN_ApplicationEncoding iso-8859-15
-#define MAIN_ParameterSize 12497
-#define MAIN_MaxKoNumber 2083
+#define MAIN_ParameterSize 12578
+#define MAIN_MaxKoNumber 1987
 #define MAIN_OrderNumber "OpenKnx-MG-JAL"
-#define BASE_ModuleVersion 22
-#define UCT_ModuleVersion 4
+#define BASE_ModuleVersion 23
+#define UCT_ModuleVersion 5
 #define SHC_ModuleVersion 4
-#define LOG_ModuleVersion 56
+#define LOG_ModuleVersion 64
 #define FCB_ModuleVersion 9
 // Parameter with single occurrence
 
@@ -87,7 +87,7 @@
 #define BASE_Info1LedFunc                        80      // 16 Bits, Bit 15-0
 #define BASE_Info2LedFunc                        82      // 16 Bits, Bit 15-0
 #define BASE_Info3LedFunc                        84      // 16 Bits, Bit 15-0
-#define BASE_DefaultLedFunc                      85      // 1 Bit, Bit 7
+#define BASE_DefaultLedFunc                      86      // 1 Bit, Bit 7
 #define     BASE_DefaultLedFuncMask 0x80
 #define     BASE_DefaultLedFuncShift 7
 #define BASE_Dummy                               109      // uint8_t
@@ -118,7 +118,7 @@
 #define ParamBASE_HeartbeatDelayTimeMS                (paramDelay(knx.paramWord(BASE_HeartbeatDelayTime)))
 // Zeitzone
 #define ParamBASE_Timezone                            ((knx.paramByte(BASE_Timezone) & BASE_TimezoneMask) >> BASE_TimezoneShift)
-// Empfangen über
+// Empfangen ├╝ber
 #define ParamBASE_CombinedTimeDate                    ((bool)(knx.paramByte(BASE_CombinedTimeDate) & BASE_CombinedTimeDateMask))
 // Sommerzeit ermitteln durch
 #define ParamBASE_SummertimeAll                       (knx.paramByte(BASE_SummertimeAll) & BASE_SummertimeAllMask)
@@ -133,7 +133,7 @@
 #define ParamBASE_TimezoneCustomStr                   (knx.paramString(BASE_TimezoneCustom, BASE_TimezoneCustomLength))
 // Breitengrad
 #define ParamBASE_Latitude                            (knx.paramFloat(BASE_Latitude, Float_Enc_IEEE754Single))
-// Längengrad
+// L├ñngengrad
 #define ParamBASE_Longitude                           (knx.paramFloat(BASE_Longitude, Float_Enc_IEEE754Single))
 // Diagnoseobjekt anzeigen
 #define ParamBASE_Diagnose                            ((bool)(knx.paramByte(BASE_Diagnose) & BASE_DiagnoseMask))
@@ -259,15 +259,8 @@
 #define SHC_CloudsFallback                      132      // 7 Bits, Bit 7-1
 #define     SHC_CloudsFallbackMask 0xFE
 #define     SHC_CloudsFallbackShift 1
-#define SHC_BrightnessInputCount                133      // 8 Bits, Bit 7-0
-#define SHC_BrightnessAggregation               134      // 8 Bits, Bit 7-0
-#define SHC_BrightnessAzimuth1                  135      // 16 Bits, Bit 15-0
-#define SHC_BrightnessAzimuth2                  137      // 16 Bits, Bit 15-0
-#define SHC_BrightnessAzimuth3                  139      // 16 Bits, Bit 15-0
-#define SHC_BrightnessAzimuth4                  141      // 16 Bits, Bit 15-0
-#define SHC_BrightnessAzimuth5                  143      // 16 Bits, Bit 15-0
 
-// Verfügbare Kanäle
+// Verf├╝gbare Kan├ñle
 #define ParamSHC_VisibleChannels                     (knx.paramByte(SHC_VisibleChannels))
 // Temperatur
 #define ParamSHC_HasTemperaturInput                  ((bool)(knx.paramByte(SHC_HasTemperaturInput) & SHC_HasTemperaturInputMask))
@@ -281,58 +274,44 @@
 #define ParamSHC_HasRainInput                        ((bool)(knx.paramByte(SHC_HasRainInput) & SHC_HasRainInputMask))
 // Wolkenbedeckung
 #define ParamSHC_HasCloudsInput                      ((bool)(knx.paramByte(SHC_HasCloudsInput) & SHC_HasCloudsInputMask))
-// Tägliche Aktivierung
+// T├ñgliche Aktivierung
 #define ParamSHC_ShadingActivation                   (knx.paramByte(SHC_ShadingActivation))
-// Ausfallsüberwachung
+// Ausfalls├╝berwachung
 #define ParamSHC_TempWatchdog                        ((knx.paramByte(SHC_TempWatchdog) & SHC_TempWatchdogMask) >> SHC_TempWatchdogShift)
 // Verhalten bei Ausfall
 #define ParamSHC_TempFallbackMode                    (knx.paramByte(SHC_TempFallbackMode) & SHC_TempFallbackModeMask)
 // Wert
 #define ParamSHC_TempFallback                        (knx.paramByte(SHC_TempFallback))
-// Ausfallsüberwachung
+// Ausfalls├╝berwachung
 #define ParamSHC_TempForecastWatchdog                ((knx.paramByte(SHC_TempForecastWatchdog) & SHC_TempForecastWatchdogMask) >> SHC_TempForecastWatchdogShift)
 // Verhalten bei Ausfall
 #define ParamSHC_TempForecastFallbackMode            (knx.paramByte(SHC_TempForecastFallbackMode) & SHC_TempForecastFallbackModeMask)
 // Wert
 #define ParamSHC_TempForecastFallback                (knx.paramByte(SHC_TempForecastFallback))
-// Ausfallsüberwachung
+// Ausfalls├╝berwachung
 #define ParamSHC_BrightnessWatchdog                  ((knx.paramByte(SHC_BrightnessWatchdog) & SHC_BrightnessWatchdogMask) >> SHC_BrightnessWatchdogShift)
 // Verhalten bei Ausfall
 #define ParamSHC_BrightnessFallbackMode              (knx.paramByte(SHC_BrightnessFallbackMode) & SHC_BrightnessFallbackModeMask)
 // Wert
 #define ParamSHC_BrightnessFallback                  (knx.paramByte(SHC_BrightnessFallback))
-// Ausfallsüberwachung
+// Ausfalls├╝berwachung
 #define ParamSHC_UVIWatchdog                         ((knx.paramByte(SHC_UVIWatchdog) & SHC_UVIWatchdogMask) >> SHC_UVIWatchdogShift)
 // Verhalten bei Ausfall
 #define ParamSHC_UVIFallbackMode                     (knx.paramByte(SHC_UVIFallbackMode) & SHC_UVIFallbackModeMask)
 // Wert
 #define ParamSHC_UVIFallback                         (knx.paramFloat(SHC_UVIFallback, Float_Enc_IEEE754Single))
-// Ausfallsüberwachung
+// Ausfalls├╝berwachung
 #define ParamSHC_RainWatchdog                        ((knx.paramByte(SHC_RainWatchdog) & SHC_RainWatchdogMask) >> SHC_RainWatchdogShift)
 // Verhalten bei Ausfall
 #define ParamSHC_RainFallbackMode                    (knx.paramByte(SHC_RainFallbackMode) & SHC_RainFallbackModeMask)
 // Wert
 #define ParamSHC_RainFallback                        ((bool)(knx.paramByte(SHC_RainFallback) & SHC_RainFallbackMask))
-// Ausfallsüberwachung
+// Ausfalls├╝berwachung
 #define ParamSHC_CloudsWatchdog                      ((knx.paramByte(SHC_CloudsWatchdog) & SHC_CloudsWatchdogMask) >> SHC_CloudsWatchdogShift)
 // Verhalten bei Ausfall
 #define ParamSHC_CloudsFallbackMode                  (knx.paramByte(SHC_CloudsFallbackMode) & SHC_CloudsFallbackModeMask)
 // Wert
 #define ParamSHC_CloudsFallback                      ((knx.paramByte(SHC_CloudsFallback) & SHC_CloudsFallbackMask) >> SHC_CloudsFallbackShift)
-// Weitere Helligkeitssensoren
-#define ParamSHC_BrightnessInputCount                (knx.paramByte(SHC_BrightnessInputCount))
-// Helligkeit Aggregation
-#define ParamSHC_BrightnessAggregation               (knx.paramByte(SHC_BrightnessAggregation))
-// Helligkeit Sensor 1
-#define ParamSHC_BrightnessAzimuth1                  (knx.paramWord(SHC_BrightnessAzimuth1))
-// Helligkeit Sensor 2
-#define ParamSHC_BrightnessAzimuth2                  (knx.paramWord(SHC_BrightnessAzimuth2))
-// Helligkeit Sensor 3
-#define ParamSHC_BrightnessAzimuth3                  (knx.paramWord(SHC_BrightnessAzimuth3))
-// Helligkeit Sensor 4
-#define ParamSHC_BrightnessAzimuth4                  (knx.paramWord(SHC_BrightnessAzimuth4))
-// Helligkeit Sensor 5
-#define ParamSHC_BrightnessAzimuth5                  (knx.paramWord(SHC_BrightnessAzimuth5))
 
 #define SHC_KoShadingControlDailyActivation 400
 #define SHC_KoShadingControlDailyActivationStatus 401
@@ -343,14 +322,10 @@
 #define SHC_KoRainInput 406
 #define SHC_KoCloudsInput 407
 #define SHC_KoMeasurementError 408
-#define SHC_KoBrightnessInput2 409
-#define SHC_KoBrightnessInput3 410
-#define SHC_KoBrightnessInput4 411
-#define SHC_KoBrightnessInput5 412
 
-// Jalousiensteuerung: Beschattung täglich aktivieren
+// Jalousiensteuerung: Beschattung t├ñglich aktivieren
 #define KoSHC_ShadingControlDailyActivation       (knx.getGroupObject(SHC_KoShadingControlDailyActivation))
-// Jalousiensteuerung: Beschattung täglich aktivieren Status
+// Jalousiensteuerung: Beschattung t├ñglich aktivieren Status
 #define KoSHC_ShadingControlDailyActivationStatus (knx.getGroupObject(SHC_KoShadingControlDailyActivationStatus))
 // Jalousiensteuerung: Temperatur
 #define KoSHC_TempInput                           (knx.getGroupObject(SHC_KoTempInput))
@@ -362,23 +337,15 @@
 #define KoSHC_UVIInput                            (knx.getGroupObject(SHC_KoUVIInput))
 // Jalousiensteuerung: Regen Ja/Nein
 #define KoSHC_RainInput                           (knx.getGroupObject(SHC_KoRainInput))
-// Jalousiensteuerung: Bewölkung
+// Jalousiensteuerung: Bew├Âlkung
 #define KoSHC_CloudsInput                         (knx.getGroupObject(SHC_KoCloudsInput))
 // Jalousiensteuerung: Fehlender Messwert
 #define KoSHC_MeasurementError                    (knx.getGroupObject(SHC_KoMeasurementError))
-// Jalousiensteuerung: Helligkeit 2
-#define KoSHC_BrightnessInput2                    (knx.getGroupObject(SHC_KoBrightnessInput2))
-// Jalousiensteuerung: Helligkeit 3
-#define KoSHC_BrightnessInput3                    (knx.getGroupObject(SHC_KoBrightnessInput3))
-// Jalousiensteuerung: Helligkeit 4
-#define KoSHC_BrightnessInput4                    (knx.getGroupObject(SHC_KoBrightnessInput4))
-// Jalousiensteuerung: Helligkeit 5
-#define KoSHC_BrightnessInput5                    (knx.getGroupObject(SHC_KoBrightnessInput5))
 
 #define SHC_ChannelCount 32
 
 // Parameter per channel
-#define SHC_ParamBlockOffset 145
+#define SHC_ParamBlockOffset 133
 #define SHC_ParamBlockSize 121
 #define SHC_ParamCalcIndex(index) (index + SHC_ParamBlockOffset + _channelIndex * SHC_ParamBlockSize)
 
@@ -404,9 +371,6 @@
 #define SHC_CNightWindowTiltAllowed              1      // 1 Bit, Bit 1
 #define     SHC_CNightWindowTiltAllowedMask 0x02
 #define     SHC_CNightWindowTiltAllowedShift 1
-#define SHC_CBrightnessAzimuthEnabled            1      // 1 Bit, Bit 0
-#define     SHC_CBrightnessAzimuthEnabledMask 0x01
-#define     SHC_CBrightnessAzimuthEnabledShift 0
 #define SHC_CWindowTiltWaitTime                  2      // 6 Bits, Bit 7-2
 #define     SHC_CWindowTiltWaitTimeMask 0xFC
 #define     SHC_CWindowTiltWaitTimeShift 2
@@ -416,9 +380,6 @@
 #define SHC_CNightStartBehavior                  3      // 4 Bits, Bit 7-4
 #define     SHC_CNightStartBehaviorMask 0xF0
 #define     SHC_CNightStartBehaviorShift 4
-#define SHC_CWindowOrientation                   3      // 3 Bits, Bit 3-1
-#define     SHC_CWindowOrientationMask 0x0E
-#define     SHC_CWindowOrientationShift 1
 #define SHC_CNightFromTime                       4      // 16_t
 #define SHC_CNightSunSet                         6      // 4 Bits, Bit 7-4
 #define     SHC_CNightSunSetMask 0xF0
@@ -700,7 +661,7 @@
 #define     SHC_CShading2BreakMask 0x0F
 #define     SHC_CShading2BreakShift 0
 
-// Geräteart
+// Ger├ñteart
 #define ParamSHC_CType                               (knx.paramByte(SHC_ParamCalcIndex(SHC_CType)))
 // Kanal deaktivieren (zu Testzwecken)
 #define ParamSHC_CDeactivated                        ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CDeactivated)) & SHC_CDeactivatedMask))
@@ -716,29 +677,25 @@
 #define ParamSHC_CManualIgnoreChannelLock            ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CManualIgnoreChannelLock)) & SHC_CManualIgnoreChannelLockMask))
 // 'Fenster gekippt' Modus erlaubt
 #define ParamSHC_CNightWindowTiltAllowed             ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CNightWindowTiltAllowed)) & SHC_CNightWindowTiltAllowedMask))
-// Azimut auswerten
-#define ParamSHC_CBrightnessAzimuthEnabled           ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CBrightnessAzimuthEnabled)) & SHC_CBrightnessAzimuthEnabledMask))
-// Kontaktänderung auswerten nach
+// Kontakt├ñnderung auswerten nach
 #define ParamSHC_CWindowTiltWaitTime                 ((knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowTiltWaitTime)) & SHC_CWindowTiltWaitTimeMask) >> SHC_CWindowTiltWaitTimeShift)
 // Gekippt wenn
 #define ParamSHC_CWindowTiltHandling                 (knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowTiltHandling)) & SHC_CWindowTiltHandlingMask)
-// Auslöser
+// Ausl├Âser
 #define ParamSHC_CNightStartBehavior                 ((knx.paramByte(SHC_ParamCalcIndex(SHC_CNightStartBehavior)) & SHC_CNightStartBehaviorMask) >> SHC_CNightStartBehaviorShift)
-// Fenster-/Behangausrichtung
-#define ParamSHC_CWindowOrientation                  ((knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOrientation)) & SHC_CWindowOrientationMask) >> SHC_CWindowOrientationShift)
 // Uhrzeit
 #define ParamSHC_CNightFromTime                      ()
 // Sonne
 #define ParamSHC_CNightSunSet                        ((knx.paramByte(SHC_ParamCalcIndex(SHC_CNightSunSet)) & SHC_CNightSunSetMask) >> SHC_CNightSunSetShift)
-// Höhenwinkel Offset
+// H├Âhenwinkel Offset
 #define ParamSHC_CNightSunSetElevationOffset         (knx.paramByte(SHC_ParamCalcIndex(SHC_CNightSunSetElevationOffset)))
-// Auslöser
+// Ausl├Âser
 #define ParamSHC_CNightEndBehavior                   ((knx.paramByte(SHC_ParamCalcIndex(SHC_CNightEndBehavior)) & SHC_CNightEndBehaviorMask) >> SHC_CNightEndBehaviorShift)
 // Uhrzeit
 #define ParamSHC_CNightToTime                        ()
 // Sonne
 #define ParamSHC_CNightSunRise                       ((knx.paramByte(SHC_ParamCalcIndex(SHC_CNightSunRise)) & SHC_CNightSunRiseMask) >> SHC_CNightSunRiseShift)
-// Höhenwinkel Offset
+// H├Âhenwinkel Offset
 #define ParamSHC_CNightSunRiseElevationOffset        (knx.paramByte(SHC_ParamCalcIndex(SHC_CNightSunRiseElevationOffset)))
 // Heizung
 #define ParamSHC_CHeatingInput                       ((knx.paramByte(SHC_ParamCalcIndex(SHC_CHeatingInput)) & SHC_CHeatingInputMask) >> SHC_CHeatingInputShift)
@@ -766,7 +723,7 @@
 #define ParamSHC_CWindowOpenCount                    ((knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenCount)) & SHC_CWindowOpenCountMask) >> SHC_CWindowOpenCountShift)
 // Beschattungsmodus Anzahl
 #define ParamSHC_CShadingCount                       (knx.paramByte(SHC_ParamCalcIndex(SHC_CShadingCount)) & SHC_CShadingCountMask)
-// Ausfallsüberwachung
+// Ausfalls├╝berwachung
 #define ParamSHC_CHeatingWatchdog                    ((knx.paramByte(SHC_ParamCalcIndex(SHC_CHeatingWatchdog)) & SHC_CHeatingWatchdogMask) >> SHC_CHeatingWatchdogShift)
 // Verhalten bei Ausfall
 #define ParamSHC_CHeatingWatchdogBehavior            (knx.paramByte(SHC_ParamCalcIndex(SHC_CHeatingWatchdogBehavior)) & SHC_CHeatingWatchdogBehaviorMask)
@@ -774,7 +731,7 @@
 #define ParamSHC_CHeadingFallbackPercent             ((knx.paramByte(SHC_ParamCalcIndex(SHC_CHeadingFallbackPercent)) & SHC_CHeadingFallbackPercentMask) >> SHC_CHeadingFallbackPercentShift)
 // Wert
 #define ParamSHC_CHeadingFallback                    ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CHeadingFallback)) & SHC_CHeadingFallbackMask))
-// Ausfallsüberwachung
+// Ausfalls├╝berwachung
 #define ParamSHC_CRoomTempWatchdog                   ((knx.paramByte(SHC_ParamCalcIndex(SHC_CRoomTempWatchdog)) & SHC_CRoomTempWatchdogMask) >> SHC_CRoomTempWatchdogShift)
 // Verhalten bei Ausfall
 #define ParamSHC_CRoomTempWatchdogBehavior           (knx.paramByte(SHC_ParamCalcIndex(SHC_CRoomTempWatchdogBehavior)) & SHC_CRoomTempWatchdogBehaviorMask)
@@ -784,7 +741,7 @@
 #define ParamSHC_CShortKeyPressUpIfOpen              ((knx.paramByte(SHC_ParamCalcIndex(SHC_CShortKeyPressUpIfOpen)) & SHC_CShortKeyPressUpIfOpenMask) >> SHC_CShortKeyPressUpIfOpenShift)
 // Langer Druck 'Nach oben'
 #define ParamSHC_CLongKeyPressUpIfOpen               (knx.paramByte(SHC_ParamCalcIndex(SHC_CLongKeyPressUpIfOpen)) & SHC_CLongKeyPressUpIfOpenMask)
-// Sperrzeit für Automatiken nach Handbedienung
+// Sperrzeit f├╝r Automatiken nach Handbedienung
 #define ParamSHC_CManualWaitTime                     (knx.paramByte(SHC_ParamCalcIndex(SHC_CManualWaitTime)))
 // Kurzer Druck 'Nach unten'
 #define ParamSHC_CShortKeyPressUpIfClosed            ((knx.paramByte(SHC_ParamCalcIndex(SHC_CShortKeyPressUpIfClosed)) & SHC_CShortKeyPressUpIfClosedMask) >> SHC_CShortKeyPressUpIfClosedShift)
@@ -792,7 +749,7 @@
 #define ParamSHC_CLongKeyPressUpIfClosed             (knx.paramByte(SHC_ParamCalcIndex(SHC_CLongKeyPressUpIfClosed)) & SHC_CLongKeyPressUpIfClosedMask)
 // Position anfahren
 #define ParamSHC_CWindowOpenPositionControl1         ((knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenPositionControl1)) & SHC_CWindowOpenPositionControl1Mask) >> SHC_CWindowOpenPositionControl1Shift)
-// Lamellen öffnen
+// Lamellen ├Âffnen
 #define ParamSHC_CWindowOpenSlatPositionControl1     (knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenSlatPositionControl1)) & SHC_CWindowOpenSlatPositionControl1Mask)
 // Position
 #define ParamSHC_CWindowOpenPosition1                ((knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenPosition1)) & SHC_CWindowOpenPosition1Mask) >> SHC_CWindowOpenPosition1Shift)
@@ -806,7 +763,7 @@
 #define ParamSHC_CWindowOpenNight1                   ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenNight1)) & SHC_CWindowOpenNight1Mask))
 // Position anfahren
 #define ParamSHC_CWindowOpenPositionControlN1        ((knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenPositionControlN1)) & SHC_CWindowOpenPositionControlN1Mask) >> SHC_CWindowOpenPositionControlN1Shift)
-// Lamellen öffnen
+// Lamellen ├Âffnen
 #define ParamSHC_CWindowOpenSlatPositionControlN1    (knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenSlatPositionControlN1)) & SHC_CWindowOpenSlatPositionControlN1Mask)
 // Position
 #define ParamSHC_CWindowOpenPositionN1               ((knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenPositionN1)) & SHC_CWindowOpenPositionN1Mask) >> SHC_CWindowOpenPositionN1Shift)
@@ -814,7 +771,7 @@
 #define ParamSHC_CWindowOpenSlatPositionN1           ((knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenSlatPositionN1)) & SHC_CWindowOpenSlatPositionN1Mask) >> SHC_CWindowOpenSlatPositionN1Shift)
 // Position anfahren
 #define ParamSHC_CWindowOpenPositionControl2         ((knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenPositionControl2)) & SHC_CWindowOpenPositionControl2Mask) >> SHC_CWindowOpenPositionControl2Shift)
-// Lamellen öffnen
+// Lamellen ├Âffnen
 #define ParamSHC_CWindowOpenSlatPositionControl2     (knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenSlatPositionControl2)) & SHC_CWindowOpenSlatPositionControl2Mask)
 // Position
 #define ParamSHC_CWindowOpenPosition2                ((knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenPosition2)) & SHC_CWindowOpenPosition2Mask) >> SHC_CWindowOpenPosition2Shift)
@@ -828,7 +785,7 @@
 #define ParamSHC_CWindowOpenNight2                   ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenNight2)) & SHC_CWindowOpenNight2Mask))
 // Position anfahren
 #define ParamSHC_CWindowOpenPositionControlN2        ((knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenPositionControlN2)) & SHC_CWindowOpenPositionControlN2Mask) >> SHC_CWindowOpenPositionControlN2Shift)
-// Lamellen öffnen
+// Lamellen ├Âffnen
 #define ParamSHC_CWindowOpenSlatPositionControlN2    (knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenSlatPositionControlN2)) & SHC_CWindowOpenSlatPositionControlN2Mask)
 // Position
 #define ParamSHC_CWindowOpenPositionN2               ((knx.paramByte(SHC_ParamCalcIndex(SHC_CWindowOpenPositionN2)) & SHC_CWindowOpenPositionN2Mask) >> SHC_CWindowOpenPositionN2Shift)
@@ -860,7 +817,7 @@
 #define ParamSHC_CShading1ElevationMax               (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1ElevationMax)))
 // Mindesttemperatur
 #define ParamSHC_CShading1TempMin                    (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1TempMin)))
-// Mindestens prognostizierte Tageshöchsttemperatur
+// Mindestens prognostizierte Tagesh├Âchsttemperatur
 #define ParamSHC_CShading1TempForecastMin            (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1TempForecastMin)))
 // Minimale Helligkeit
 #define ParamSHC_CShading1BrightnessMin              (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1BrightnessMin)))
@@ -868,7 +825,7 @@
 #define ParamSHC_CShading1BrightnessHyst             (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1BrightnessHyst)))
 // Minimaler UV-Index
 #define ParamSHC_CShading1UVIMin                     (knx.paramFloat(SHC_ParamCalcIndex(SHC_CShading1UVIMin), Float_Enc_IEEE754Single))
-// Maximale Bewölkung
+// Maximale Bew├Âlkung
 #define ParamSHC_CShading1Clouds                     (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1Clouds)))
 // Nur starten wenn aktuelle Position kleiner gleich
 #define ParamSHC_CShading1OnlyIfLessThan             ((knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1OnlyIfLessThan)) & SHC_CShading1OnlyIfLessThanMask) >> SHC_CShading1OnlyIfLessThanShift)
@@ -876,7 +833,7 @@
 #define ParamSHC_CShading1ShadingPosition            ((knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1ShadingPosition)) & SHC_CShading1ShadingPositionMask) >> SHC_CShading1ShadingPositionShift)
 // Lamellenstellung
 #define ParamSHC_CShading1SlatShadingPosition        ((knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1SlatShadingPosition)) & SHC_CShading1SlatShadingPositionMask) >> SHC_CShading1SlatShadingPositionShift)
-// Mindeständerung Lamellennachführung
+// Mindest├ñnderung Lamellennachf├╝hrung
 #define ParamSHC_CShading1MinChangeForSlatAdaption   (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1MinChangeForSlatAdaption)))
 // Offset Lamellenstellung
 #define ParamSHC_CShading1OffsetSlatPosition         ((int8_t)knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1OffsetSlatPosition)))
@@ -892,7 +849,7 @@
 #define ParamSHC_CShading1RoomTemperaturActive       ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1RoomTemperaturActive)) & SHC_CShading1RoomTemperaturActiveMask))
 // 'Fenster offen' Modus erlaubt
 #define ParamSHC_CShading1WindowOpenAllowed          ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1WindowOpenAllowed)) & SHC_CShading1WindowOpenAllowedMask))
-// 'Nicht erlaubt' Bits (Nur für Experten)
+// 'Nicht erlaubt' Bits (Nur f├╝r Experten)
 #define ParamSHC_CShading1DiagnoseBits               ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1DiagnoseBits)) & SHC_CShading1DiagnoseBitsMask))
 // 'Nicht erlaubt' Grund
 #define ParamSHC_CShading1DiagnoseReason             ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CShading1DiagnoseReason)) & SHC_CShading1DiagnoseReasonMask))
@@ -932,7 +889,7 @@
 #define ParamSHC_CShading2ElevationMax               (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2ElevationMax)))
 // Mindesttemperatur
 #define ParamSHC_CShading2TempMin                    (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2TempMin)))
-// Mindestens prognostizierte Tageshöchsttemperatur
+// Mindestens prognostizierte Tagesh├Âchsttemperatur
 #define ParamSHC_CShading2TempForecastMin            (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2TempForecastMin)))
 // Minimale Helligkeit
 #define ParamSHC_CShading2BrightnessMin              (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2BrightnessMin)))
@@ -940,7 +897,7 @@
 #define ParamSHC_CShading2BrightnessHyst             (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2BrightnessHyst)))
 // Minimaler UV-Index
 #define ParamSHC_CShading2UVIMin                     (knx.paramFloat(SHC_ParamCalcIndex(SHC_CShading2UVIMin), Float_Enc_IEEE754Single))
-// Maximale Bewölkung
+// Maximale Bew├Âlkung
 #define ParamSHC_CShading2Clouds                     (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2Clouds)))
 // Nur starten wenn aktuelle Position kleiner gleich
 #define ParamSHC_CShading2OnlyIfLessThan             ((knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2OnlyIfLessThan)) & SHC_CShading2OnlyIfLessThanMask) >> SHC_CShading2OnlyIfLessThanShift)
@@ -948,7 +905,7 @@
 #define ParamSHC_CShading2ShadingPosition            ((knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2ShadingPosition)) & SHC_CShading2ShadingPositionMask) >> SHC_CShading2ShadingPositionShift)
 // Lamellenstellung
 #define ParamSHC_CShading2SlatShadingPosition        ((knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2SlatShadingPosition)) & SHC_CShading2SlatShadingPositionMask) >> SHC_CShading2SlatShadingPositionShift)
-// Mindeständerung Lamellennachführung
+// Mindest├ñnderung Lamellennachf├╝hrung
 #define ParamSHC_CShading2MinChangeForSlatAdaption   (knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2MinChangeForSlatAdaption)))
 // Offset Lamellenstellung
 #define ParamSHC_CShading2OffsetSlatPosition         ((int8_t)knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2OffsetSlatPosition)))
@@ -964,7 +921,7 @@
 #define ParamSHC_CShading2RoomTemperaturActive       ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2RoomTemperaturActive)) & SHC_CShading2RoomTemperaturActiveMask))
 // 'Fenster offen' Modus erlaubt
 #define ParamSHC_CShading2WindowOpenAllowed          ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2WindowOpenAllowed)) & SHC_CShading2WindowOpenAllowedMask))
-// 'Nicht erlaubt' Bits (Nur für Experten)
+// 'Nicht erlaubt' Bits (Nur f├╝r Experten)
 #define ParamSHC_CShading2DiagnoseBits               ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2DiagnoseBits)) & SHC_CShading2DiagnoseBitsMask))
 // 'Nicht erlaubt' Grund
 #define ParamSHC_CShading2DiagnoseReason             ((bool)(knx.paramByte(SHC_ParamCalcIndex(SHC_CShading2DiagnoseReason)) & SHC_CShading2DiagnoseReasonMask))
@@ -984,7 +941,7 @@
 
 // Communication objects per channel (multiple occurrence)
 #define SHC_KoBlockOffset 420
-#define SHC_KoBlockSize 52
+#define SHC_KoBlockSize 49
 
 #define SHC_KoCalcNumber(index) (index + SHC_KoBlockOffset + _channelIndex * SHC_KoBlockSize)
 #define SHC_KoCalcIndex(number) ((number >= SHC_KoCalcNumber(0) && number < SHC_KoCalcNumber(SHC_KoBlockSize)) ? (number - SHC_KoBlockOffset) % SHC_KoBlockSize : -1)
@@ -1017,31 +974,28 @@
 #define SHC_KoCNightLockActive 24
 #define SHC_KoCHeading 25
 #define SHC_KoCRoomTemp 26
-#define SHC_KoCShadingReadyUser 27
-#define SHC_KoCWindowOpenModeActive1 28
-#define SHC_KoCWindowOpenOpened1 29
-#define SHC_KoCWindowOpenLock1 30
-#define SHC_KoCWindowOpenLockActive1 31
-#define SHC_KoCWindowOpenModeActive2 32
-#define SHC_KoCWindowOpenOpened2 33
-#define SHC_KoCWindowOpenLock2 34
-#define SHC_KoCWindowOpenLockActive2 35
-#define SHC_KoCShading1Active 36
-#define SHC_KoCShading1Lock 37
-#define SHC_KoCShading1LockActive 38
-#define SHC_KoCShading1BreakLock 39
-#define SHC_KoCShading1BreakLockActive 40
-#define SHC_KoCShading1DiagnoseNotAllowedBit 41
-#define SHC_KoCShading1DiagnoseNotAllowedReason 42
-#define SHC_KoCShading1Ready 43
-#define SHC_KoCShading2Active 44
-#define SHC_KoCShading2Lock 45
-#define SHC_KoCShading2LockActive 46
-#define SHC_KoCShading2BreakLock 47
-#define SHC_KoCShading2BreakLockActive 48
-#define SHC_KoCShading2DiagnoseNotAllowedBit 49
-#define SHC_KoCShading2DiagnoseNotAllowedReason 50
-#define SHC_KoCShading2Ready 51
+#define SHC_KoCWindowOpenModeActive1 27
+#define SHC_KoCWindowOpenOpened1 28
+#define SHC_KoCWindowOpenLock1 29
+#define SHC_KoCWindowOpenLockActive1 30
+#define SHC_KoCWindowOpenModeActive2 31
+#define SHC_KoCWindowOpenOpened2 32
+#define SHC_KoCWindowOpenLock2 33
+#define SHC_KoCWindowOpenLockActive2 34
+#define SHC_KoCShading1Active 35
+#define SHC_KoCShading1Lock 36
+#define SHC_KoCShading1LockActive 37
+#define SHC_KoCShading1BreakLock 38
+#define SHC_KoCShading1BreakLockActive 39
+#define SHC_KoCShading1DiagnoseNotAllowedBit 40
+#define SHC_KoCShading1DiagnoseNotAllowedReason 41
+#define SHC_KoCShading2Active 42
+#define SHC_KoCShading2Lock 43
+#define SHC_KoCShading2LockActive 44
+#define SHC_KoCShading2BreakLock 45
+#define SHC_KoCShading2BreakLockActive 46
+#define SHC_KoCShading2DiagnoseNotAllowedBit 47
+#define SHC_KoCShading2DiagnoseNotAllowedReason 48
 
 // 
 #define KoSHC_CShutterPercentOutput               (knx.getGroupObject(SHC_KoCalcNumber(SHC_KoCShutterPercentOutput)))
@@ -1098,8 +1052,6 @@
 // 
 #define KoSHC_CRoomTemp                           (knx.getGroupObject(SHC_KoCalcNumber(SHC_KoCRoomTemp)))
 // 
-#define KoSHC_CShadingReadyUser                   (knx.getGroupObject(SHC_KoCalcNumber(SHC_KoCShadingReadyUser)))
-// 
 #define KoSHC_CWindowOpenModeActive1              (knx.getGroupObject(SHC_KoCalcNumber(SHC_KoCWindowOpenModeActive1)))
 // 
 #define KoSHC_CWindowOpenOpened1                  (knx.getGroupObject(SHC_KoCalcNumber(SHC_KoCWindowOpenOpened1)))
@@ -1130,8 +1082,6 @@
 // 
 #define KoSHC_CShading1DiagnoseNotAllowedReason   (knx.getGroupObject(SHC_KoCalcNumber(SHC_KoCShading1DiagnoseNotAllowedReason)))
 // 
-#define KoSHC_CShading1Ready                      (knx.getGroupObject(SHC_KoCalcNumber(SHC_KoCShading1Ready)))
-// 
 #define KoSHC_CShading2Active                     (knx.getGroupObject(SHC_KoCalcNumber(SHC_KoCShading2Active)))
 // 
 #define KoSHC_CShading2Lock                       (knx.getGroupObject(SHC_KoCalcNumber(SHC_KoCShading2Lock)))
@@ -1145,297 +1095,281 @@
 #define KoSHC_CShading2DiagnoseNotAllowedBit      (knx.getGroupObject(SHC_KoCalcNumber(SHC_KoCShading2DiagnoseNotAllowedBit)))
 // 
 #define KoSHC_CShading2DiagnoseNotAllowedReason   (knx.getGroupObject(SHC_KoCalcNumber(SHC_KoCShading2DiagnoseNotAllowedReason)))
-// 
-#define KoSHC_CShading2Ready                      (knx.getGroupObject(SHC_KoCalcNumber(SHC_KoCShading2Ready)))
 
-#define LOG_BuzzerInstalled                     4017      // 1 Bit, Bit 7
-#define     LOG_BuzzerInstalledMask 0x80
-#define     LOG_BuzzerInstalledShift 7
-#define LOG_LedInstalled                        4017      // 1 Bit, Bit 6
-#define     LOG_LedInstalledMask 0x40
-#define     LOG_LedInstalledShift 6
-#define LOG_VacationKo                          4017      // 1 Bit, Bit 5
-#define     LOG_VacationKoMask 0x20
-#define     LOG_VacationKoShift 5
-#define LOG_HolidayKo                           4017      // 1 Bit, Bit 4
-#define     LOG_HolidayKoMask 0x10
-#define     LOG_HolidayKoShift 4
-#define LOG_VacationRead                        4017      // 1 Bit, Bit 3
-#define     LOG_VacationReadMask 0x08
-#define     LOG_VacationReadShift 3
-#define LOG_HolidaySend                         4017      // 1 Bit, Bit 2
-#define     LOG_HolidaySendMask 0x04
-#define     LOG_HolidaySendShift 2
-#define LOG_Neujahr                             4018      // 1 Bit, Bit 7
+#define LOG_VisibleChannels                     4005      // uint8_t
+#define LOG_VacationKo                          4006      // 1 Bit, Bit 7
+#define     LOG_VacationKoMask 0x80
+#define     LOG_VacationKoShift 7
+#define LOG_HolidayKo                           4006      // 1 Bit, Bit 6
+#define     LOG_HolidayKoMask 0x40
+#define     LOG_HolidayKoShift 6
+#define LOG_VacationRead                        4006      // 1 Bit, Bit 5
+#define     LOG_VacationReadMask 0x20
+#define     LOG_VacationReadShift 5
+#define LOG_HolidaySend                         4006      // 1 Bit, Bit 4
+#define     LOG_HolidaySendMask 0x10
+#define     LOG_HolidaySendShift 4
+#define LOG_Neujahr                             4007      // 1 Bit, Bit 7
 #define     LOG_NeujahrMask 0x80
 #define     LOG_NeujahrShift 7
-#define LOG_DreiKoenige                         4018      // 1 Bit, Bit 6
+#define LOG_DreiKoenige                         4007      // 1 Bit, Bit 6
 #define     LOG_DreiKoenigeMask 0x40
 #define     LOG_DreiKoenigeShift 6
-#define LOG_Weiberfastnacht                     4018      // 1 Bit, Bit 5
+#define LOG_Weiberfastnacht                     4007      // 1 Bit, Bit 5
 #define     LOG_WeiberfastnachtMask 0x20
 #define     LOG_WeiberfastnachtShift 5
-#define LOG_Rosenmontag                         4018      // 1 Bit, Bit 4
+#define LOG_Rosenmontag                         4007      // 1 Bit, Bit 4
 #define     LOG_RosenmontagMask 0x10
 #define     LOG_RosenmontagShift 4
-#define LOG_Fastnachtsdienstag                  4018      // 1 Bit, Bit 3
+#define LOG_Fastnachtsdienstag                  4007      // 1 Bit, Bit 3
 #define     LOG_FastnachtsdienstagMask 0x08
 #define     LOG_FastnachtsdienstagShift 3
-#define LOG_Aschermittwoch                      4018      // 1 Bit, Bit 2
+#define LOG_Aschermittwoch                      4007      // 1 Bit, Bit 2
 #define     LOG_AschermittwochMask 0x04
 #define     LOG_AschermittwochShift 2
-#define LOG_Frauentag                           4018      // 1 Bit, Bit 1
+#define LOG_Frauentag                           4007      // 1 Bit, Bit 1
 #define     LOG_FrauentagMask 0x02
 #define     LOG_FrauentagShift 1
-#define LOG_Gruendonnerstag                     4018      // 1 Bit, Bit 0
+#define LOG_Gruendonnerstag                     4007      // 1 Bit, Bit 0
 #define     LOG_GruendonnerstagMask 0x01
 #define     LOG_GruendonnerstagShift 0
-#define LOG_Karfreitag                          4019      // 1 Bit, Bit 7
+#define LOG_Karfreitag                          4008      // 1 Bit, Bit 7
 #define     LOG_KarfreitagMask 0x80
 #define     LOG_KarfreitagShift 7
-#define LOG_Ostersonntag                        4019      // 1 Bit, Bit 6
+#define LOG_Ostersonntag                        4008      // 1 Bit, Bit 6
 #define     LOG_OstersonntagMask 0x40
 #define     LOG_OstersonntagShift 6
-#define LOG_Ostermontag                         4019      // 1 Bit, Bit 5
+#define LOG_Ostermontag                         4008      // 1 Bit, Bit 5
 #define     LOG_OstermontagMask 0x20
 #define     LOG_OstermontagShift 5
-#define LOG_TagDerArbeit                        4019      // 1 Bit, Bit 4
+#define LOG_TagDerArbeit                        4008      // 1 Bit, Bit 4
 #define     LOG_TagDerArbeitMask 0x10
 #define     LOG_TagDerArbeitShift 4
-#define LOG_Himmelfahrt                         4019      // 1 Bit, Bit 3
+#define LOG_Himmelfahrt                         4008      // 1 Bit, Bit 3
 #define     LOG_HimmelfahrtMask 0x08
 #define     LOG_HimmelfahrtShift 3
-#define LOG_Pfingstsonntag                      4019      // 1 Bit, Bit 2
+#define LOG_Pfingstsonntag                      4008      // 1 Bit, Bit 2
 #define     LOG_PfingstsonntagMask 0x04
 #define     LOG_PfingstsonntagShift 2
-#define LOG_Pfingstmontag                       4019      // 1 Bit, Bit 1
+#define LOG_Pfingstmontag                       4008      // 1 Bit, Bit 1
 #define     LOG_PfingstmontagMask 0x02
 #define     LOG_PfingstmontagShift 1
-#define LOG_Fronleichnam                        4019      // 1 Bit, Bit 0
+#define LOG_Fronleichnam                        4008      // 1 Bit, Bit 0
 #define     LOG_FronleichnamMask 0x01
 #define     LOG_FronleichnamShift 0
-#define LOG_Friedensfest                        4020      // 1 Bit, Bit 7
+#define LOG_Friedensfest                        4009      // 1 Bit, Bit 7
 #define     LOG_FriedensfestMask 0x80
 #define     LOG_FriedensfestShift 7
-#define LOG_MariaHimmelfahrt                    4020      // 1 Bit, Bit 6
+#define LOG_MariaHimmelfahrt                    4009      // 1 Bit, Bit 6
 #define     LOG_MariaHimmelfahrtMask 0x40
 #define     LOG_MariaHimmelfahrtShift 6
-#define LOG_DeutscheEinheit                     4020      // 1 Bit, Bit 5
+#define LOG_DeutscheEinheit                     4009      // 1 Bit, Bit 5
 #define     LOG_DeutscheEinheitMask 0x20
 #define     LOG_DeutscheEinheitShift 5
-#define LOG_Reformationstag                     4020      // 1 Bit, Bit 4
+#define LOG_Reformationstag                     4009      // 1 Bit, Bit 4
 #define     LOG_ReformationstagMask 0x10
 #define     LOG_ReformationstagShift 4
-#define LOG_Allerheiligen                       4020      // 1 Bit, Bit 3
+#define LOG_Allerheiligen                       4009      // 1 Bit, Bit 3
 #define     LOG_AllerheiligenMask 0x08
 #define     LOG_AllerheiligenShift 3
-#define LOG_BussBettag                          4020      // 1 Bit, Bit 2
+#define LOG_BussBettag                          4009      // 1 Bit, Bit 2
 #define     LOG_BussBettagMask 0x04
 #define     LOG_BussBettagShift 2
-#define LOG_Advent1                             4020      // 1 Bit, Bit 1
+#define LOG_Advent1                             4009      // 1 Bit, Bit 1
 #define     LOG_Advent1Mask 0x02
 #define     LOG_Advent1Shift 1
-#define LOG_Advent2                             4020      // 1 Bit, Bit 0
+#define LOG_Advent2                             4009      // 1 Bit, Bit 0
 #define     LOG_Advent2Mask 0x01
 #define     LOG_Advent2Shift 0
-#define LOG_Advent3                             4021      // 1 Bit, Bit 7
+#define LOG_Advent3                             4010      // 1 Bit, Bit 7
 #define     LOG_Advent3Mask 0x80
 #define     LOG_Advent3Shift 7
-#define LOG_Advent4                             4021      // 1 Bit, Bit 6
+#define LOG_Advent4                             4010      // 1 Bit, Bit 6
 #define     LOG_Advent4Mask 0x40
 #define     LOG_Advent4Shift 6
-#define LOG_Heiligabend                         4021      // 1 Bit, Bit 5
+#define LOG_Heiligabend                         4010      // 1 Bit, Bit 5
 #define     LOG_HeiligabendMask 0x20
 #define     LOG_HeiligabendShift 5
-#define LOG_Weihnachtstag1                      4021      // 1 Bit, Bit 4
+#define LOG_Weihnachtstag1                      4010      // 1 Bit, Bit 4
 #define     LOG_Weihnachtstag1Mask 0x10
 #define     LOG_Weihnachtstag1Shift 4
-#define LOG_Weihnachtstag2                      4021      // 1 Bit, Bit 3
+#define LOG_Weihnachtstag2                      4010      // 1 Bit, Bit 3
 #define     LOG_Weihnachtstag2Mask 0x08
 #define     LOG_Weihnachtstag2Shift 3
-#define LOG_Silvester                           4021      // 1 Bit, Bit 2
+#define LOG_Silvester                           4010      // 1 Bit, Bit 2
 #define     LOG_SilvesterMask 0x04
 #define     LOG_SilvesterShift 2
-#define LOG_Nationalfeiertag                    4021      // 1 Bit, Bit 1
+#define LOG_Nationalfeiertag                    4010      // 1 Bit, Bit 1
 #define     LOG_NationalfeiertagMask 0x02
 #define     LOG_NationalfeiertagShift 1
-#define LOG_MariaEmpfaengnis                    4021      // 1 Bit, Bit 0
+#define LOG_MariaEmpfaengnis                    4010      // 1 Bit, Bit 0
 #define     LOG_MariaEmpfaengnisMask 0x01
 #define     LOG_MariaEmpfaengnisShift 0
-#define LOG_NationalfeiertagSchweiz             4022      // 1 Bit, Bit 7
+#define LOG_NationalfeiertagSchweiz             4011      // 1 Bit, Bit 7
 #define     LOG_NationalfeiertagSchweizMask 0x80
 #define     LOG_NationalfeiertagSchweizShift 7
-#define LOG_Totensonntag                        4022      // 1 Bit, Bit 6
+#define LOG_Totensonntag                        4011      // 1 Bit, Bit 6
 #define     LOG_TotensonntagMask 0x40
 #define     LOG_TotensonntagShift 6
-#define LOG_Weltkindertag                       4022      // 1 Bit, Bit 5
+#define LOG_Weltkindertag                       4011      // 1 Bit, Bit 5
 #define     LOG_WeltkindertagMask 0x20
 #define     LOG_WeltkindertagShift 5
-#define LOG_BuzzerSilent                        4023      // uint16_t
-#define LOG_BuzzerNormal                        4025      // uint16_t
-#define LOG_BuzzerLoud                          4027      // uint16_t
-#define LOG_VisibleChannels                     4029      // uint8_t
-#define LOG_LedMapping                          4030      // 3 Bits, Bit 7-5
-#define     LOG_LedMappingMask 0xE0
-#define     LOG_LedMappingShift 5
-#define LOG_UserFormula1                        4031      // char*, 99 Byte
+#define LOG_UserFormula1                        4012      // char*, 99 Byte
 #define     LOG_UserFormula1Length 99
-#define LOG_UserFormula1Active                  4130      // 1 Bit, Bit 7
+#define LOG_UserFormula1Active                  4111      // 1 Bit, Bit 7
 #define     LOG_UserFormula1ActiveMask 0x80
 #define     LOG_UserFormula1ActiveShift 7
-#define LOG_UserFormula2                        4131      // char*, 99 Byte
+#define LOG_UserFormula2                        4112      // char*, 99 Byte
 #define     LOG_UserFormula2Length 99
-#define LOG_UserFormula2Active                  4230      // 1 Bit, Bit 7
+#define LOG_UserFormula2Active                  4211      // 1 Bit, Bit 7
 #define     LOG_UserFormula2ActiveMask 0x80
 #define     LOG_UserFormula2ActiveShift 7
-#define LOG_UserFormula3                        4231      // char*, 99 Byte
+#define LOG_UserFormula3                        4212      // char*, 99 Byte
 #define     LOG_UserFormula3Length 99
-#define LOG_UserFormula3Active                  4330      // 1 Bit, Bit 7
+#define LOG_UserFormula3Active                  4311      // 1 Bit, Bit 7
 #define     LOG_UserFormula3ActiveMask 0x80
 #define     LOG_UserFormula3ActiveShift 7
-#define LOG_UserFormula4                        4331      // char*, 99 Byte
+#define LOG_UserFormula4                        4312      // char*, 99 Byte
 #define     LOG_UserFormula4Length 99
-#define LOG_UserFormula4Active                  4430      // 1 Bit, Bit 7
+#define LOG_UserFormula4Active                  4411      // 1 Bit, Bit 7
 #define     LOG_UserFormula4ActiveMask 0x80
 #define     LOG_UserFormula4ActiveShift 7
-#define LOG_UserFormula5                        4431      // char*, 99 Byte
+#define LOG_UserFormula5                        4412      // char*, 99 Byte
 #define     LOG_UserFormula5Length 99
-#define LOG_UserFormula5Active                  4530      // 1 Bit, Bit 7
+#define LOG_UserFormula5Active                  4511      // 1 Bit, Bit 7
 #define     LOG_UserFormula5ActiveMask 0x80
 #define     LOG_UserFormula5ActiveShift 7
-#define LOG_UserFormula6                        4531      // char*, 99 Byte
+#define LOG_UserFormula6                        4512      // char*, 99 Byte
 #define     LOG_UserFormula6Length 99
-#define LOG_UserFormula6Active                  4630      // 1 Bit, Bit 7
+#define LOG_UserFormula6Active                  4611      // 1 Bit, Bit 7
 #define     LOG_UserFormula6ActiveMask 0x80
 #define     LOG_UserFormula6ActiveShift 7
-#define LOG_UserFormula7                        4631      // char*, 99 Byte
+#define LOG_UserFormula7                        4612      // char*, 99 Byte
 #define     LOG_UserFormula7Length 99
-#define LOG_UserFormula7Active                  4730      // 1 Bit, Bit 7
+#define LOG_UserFormula7Active                  4711      // 1 Bit, Bit 7
 #define     LOG_UserFormula7ActiveMask 0x80
 #define     LOG_UserFormula7ActiveShift 7
-#define LOG_UserFormula8                        4731      // char*, 99 Byte
+#define LOG_UserFormula8                        4712      // char*, 99 Byte
 #define     LOG_UserFormula8Length 99
-#define LOG_UserFormula8Active                  4830      // 1 Bit, Bit 7
+#define LOG_UserFormula8Active                  4811      // 1 Bit, Bit 7
 #define     LOG_UserFormula8ActiveMask 0x80
 #define     LOG_UserFormula8ActiveShift 7
-#define LOG_UserFormula9                        4831      // char*, 99 Byte
+#define LOG_UserFormula9                        4812      // char*, 99 Byte
 #define     LOG_UserFormula9Length 99
-#define LOG_UserFormula9Active                  4930      // 1 Bit, Bit 7
+#define LOG_UserFormula9Active                  4911      // 1 Bit, Bit 7
 #define     LOG_UserFormula9ActiveMask 0x80
 #define     LOG_UserFormula9ActiveShift 7
-#define LOG_UserFormula10                       4931      // char*, 99 Byte
+#define LOG_UserFormula10                       4912      // char*, 99 Byte
 #define     LOG_UserFormula10Length 99
-#define LOG_UserFormula10Active                 5030      // 1 Bit, Bit 7
+#define LOG_UserFormula10Active                 5011      // 1 Bit, Bit 7
 #define     LOG_UserFormula10ActiveMask 0x80
 #define     LOG_UserFormula10ActiveShift 7
-#define LOG_UserFormula11                       5031      // char*, 99 Byte
+#define LOG_UserFormula11                       5012      // char*, 99 Byte
 #define     LOG_UserFormula11Length 99
-#define LOG_UserFormula11Active                 5130      // 1 Bit, Bit 7
+#define LOG_UserFormula11Active                 5111      // 1 Bit, Bit 7
 #define     LOG_UserFormula11ActiveMask 0x80
 #define     LOG_UserFormula11ActiveShift 7
-#define LOG_UserFormula12                       5131      // char*, 99 Byte
+#define LOG_UserFormula12                       5112      // char*, 99 Byte
 #define     LOG_UserFormula12Length 99
-#define LOG_UserFormula12Active                 5230      // 1 Bit, Bit 7
+#define LOG_UserFormula12Active                 5211      // 1 Bit, Bit 7
 #define     LOG_UserFormula12ActiveMask 0x80
 #define     LOG_UserFormula12ActiveShift 7
-#define LOG_UserFormula13                       5231      // char*, 99 Byte
+#define LOG_UserFormula13                       5212      // char*, 99 Byte
 #define     LOG_UserFormula13Length 99
-#define LOG_UserFormula13Active                 5330      // 1 Bit, Bit 7
+#define LOG_UserFormula13Active                 5311      // 1 Bit, Bit 7
 #define     LOG_UserFormula13ActiveMask 0x80
 #define     LOG_UserFormula13ActiveShift 7
-#define LOG_UserFormula14                       5331      // char*, 99 Byte
+#define LOG_UserFormula14                       5312      // char*, 99 Byte
 #define     LOG_UserFormula14Length 99
-#define LOG_UserFormula14Active                 5430      // 1 Bit, Bit 7
+#define LOG_UserFormula14Active                 5411      // 1 Bit, Bit 7
 #define     LOG_UserFormula14ActiveMask 0x80
 #define     LOG_UserFormula14ActiveShift 7
-#define LOG_UserFormula15                       5431      // char*, 99 Byte
+#define LOG_UserFormula15                       5412      // char*, 99 Byte
 #define     LOG_UserFormula15Length 99
-#define LOG_UserFormula15Active                 5530      // 1 Bit, Bit 7
+#define LOG_UserFormula15Active                 5511      // 1 Bit, Bit 7
 #define     LOG_UserFormula15ActiveMask 0x80
 #define     LOG_UserFormula15ActiveShift 7
-#define LOG_UserFormula16                       5531      // char*, 99 Byte
+#define LOG_UserFormula16                       5512      // char*, 99 Byte
 #define     LOG_UserFormula16Length 99
-#define LOG_UserFormula16Active                 5630      // 1 Bit, Bit 7
+#define LOG_UserFormula16Active                 5611      // 1 Bit, Bit 7
 #define     LOG_UserFormula16ActiveMask 0x80
 #define     LOG_UserFormula16ActiveShift 7
-#define LOG_UserFormula17                       5631      // char*, 99 Byte
+#define LOG_UserFormula17                       5612      // char*, 99 Byte
 #define     LOG_UserFormula17Length 99
-#define LOG_UserFormula17Active                 5730      // 1 Bit, Bit 7
+#define LOG_UserFormula17Active                 5711      // 1 Bit, Bit 7
 #define     LOG_UserFormula17ActiveMask 0x80
 #define     LOG_UserFormula17ActiveShift 7
-#define LOG_UserFormula18                       5731      // char*, 99 Byte
+#define LOG_UserFormula18                       5712      // char*, 99 Byte
 #define     LOG_UserFormula18Length 99
-#define LOG_UserFormula18Active                 5830      // 1 Bit, Bit 7
+#define LOG_UserFormula18Active                 5811      // 1 Bit, Bit 7
 #define     LOG_UserFormula18ActiveMask 0x80
 #define     LOG_UserFormula18ActiveShift 7
-#define LOG_UserFormula19                       5831      // char*, 99 Byte
+#define LOG_UserFormula19                       5812      // char*, 99 Byte
 #define     LOG_UserFormula19Length 99
-#define LOG_UserFormula19Active                 5930      // 1 Bit, Bit 7
+#define LOG_UserFormula19Active                 5911      // 1 Bit, Bit 7
 #define     LOG_UserFormula19ActiveMask 0x80
 #define     LOG_UserFormula19ActiveShift 7
-#define LOG_UserFormula20                       5931      // char*, 99 Byte
+#define LOG_UserFormula20                       5912      // char*, 99 Byte
 #define     LOG_UserFormula20Length 99
-#define LOG_UserFormula20Active                 6030      // 1 Bit, Bit 7
+#define LOG_UserFormula20Active                 6011      // 1 Bit, Bit 7
 #define     LOG_UserFormula20ActiveMask 0x80
 #define     LOG_UserFormula20ActiveShift 7
-#define LOG_UserFormula21                       6031      // char*, 99 Byte
+#define LOG_UserFormula21                       6012      // char*, 99 Byte
 #define     LOG_UserFormula21Length 99
-#define LOG_UserFormula21Active                 6130      // 1 Bit, Bit 7
+#define LOG_UserFormula21Active                 6111      // 1 Bit, Bit 7
 #define     LOG_UserFormula21ActiveMask 0x80
 #define     LOG_UserFormula21ActiveShift 7
-#define LOG_UserFormula22                       6131      // char*, 99 Byte
+#define LOG_UserFormula22                       6112      // char*, 99 Byte
 #define     LOG_UserFormula22Length 99
-#define LOG_UserFormula22Active                 6230      // 1 Bit, Bit 7
+#define LOG_UserFormula22Active                 6211      // 1 Bit, Bit 7
 #define     LOG_UserFormula22ActiveMask 0x80
 #define     LOG_UserFormula22ActiveShift 7
-#define LOG_UserFormula23                       6231      // char*, 99 Byte
+#define LOG_UserFormula23                       6212      // char*, 99 Byte
 #define     LOG_UserFormula23Length 99
-#define LOG_UserFormula23Active                 6330      // 1 Bit, Bit 7
+#define LOG_UserFormula23Active                 6311      // 1 Bit, Bit 7
 #define     LOG_UserFormula23ActiveMask 0x80
 #define     LOG_UserFormula23ActiveShift 7
-#define LOG_UserFormula24                       6331      // char*, 99 Byte
+#define LOG_UserFormula24                       6312      // char*, 99 Byte
 #define     LOG_UserFormula24Length 99
-#define LOG_UserFormula24Active                 6430      // 1 Bit, Bit 7
+#define LOG_UserFormula24Active                 6411      // 1 Bit, Bit 7
 #define     LOG_UserFormula24ActiveMask 0x80
 #define     LOG_UserFormula24ActiveShift 7
-#define LOG_UserFormula25                       6431      // char*, 99 Byte
+#define LOG_UserFormula25                       6412      // char*, 99 Byte
 #define     LOG_UserFormula25Length 99
-#define LOG_UserFormula25Active                 6530      // 1 Bit, Bit 7
+#define LOG_UserFormula25Active                 6511      // 1 Bit, Bit 7
 #define     LOG_UserFormula25ActiveMask 0x80
 #define     LOG_UserFormula25ActiveShift 7
-#define LOG_UserFormula26                       6531      // char*, 99 Byte
+#define LOG_UserFormula26                       6512      // char*, 99 Byte
 #define     LOG_UserFormula26Length 99
-#define LOG_UserFormula26Active                 6630      // 1 Bit, Bit 7
+#define LOG_UserFormula26Active                 6611      // 1 Bit, Bit 7
 #define     LOG_UserFormula26ActiveMask 0x80
 #define     LOG_UserFormula26ActiveShift 7
-#define LOG_UserFormula27                       6631      // char*, 99 Byte
+#define LOG_UserFormula27                       6612      // char*, 99 Byte
 #define     LOG_UserFormula27Length 99
-#define LOG_UserFormula27Active                 6730      // 1 Bit, Bit 7
+#define LOG_UserFormula27Active                 6711      // 1 Bit, Bit 7
 #define     LOG_UserFormula27ActiveMask 0x80
 #define     LOG_UserFormula27ActiveShift 7
-#define LOG_UserFormula28                       6731      // char*, 99 Byte
+#define LOG_UserFormula28                       6712      // char*, 99 Byte
 #define     LOG_UserFormula28Length 99
-#define LOG_UserFormula28Active                 6830      // 1 Bit, Bit 7
+#define LOG_UserFormula28Active                 6811      // 1 Bit, Bit 7
 #define     LOG_UserFormula28ActiveMask 0x80
 #define     LOG_UserFormula28ActiveShift 7
-#define LOG_UserFormula29                       6831      // char*, 99 Byte
+#define LOG_UserFormula29                       6812      // char*, 99 Byte
 #define     LOG_UserFormula29Length 99
-#define LOG_UserFormula29Active                 6930      // 1 Bit, Bit 7
+#define LOG_UserFormula29Active                 6911      // 1 Bit, Bit 7
 #define     LOG_UserFormula29ActiveMask 0x80
 #define     LOG_UserFormula29ActiveShift 7
-#define LOG_UserFormula30                       6931      // char*, 99 Byte
+#define LOG_UserFormula30                       6912      // char*, 99 Byte
 #define     LOG_UserFormula30Length 99
-#define LOG_UserFormula30Active                 7030      // 1 Bit, Bit 7
+#define LOG_UserFormula30Active                 7011      // 1 Bit, Bit 7
 #define     LOG_UserFormula30ActiveMask 0x80
 #define     LOG_UserFormula30ActiveShift 7
 
-// Akustischer Signalgeber vorhanden (Buzzer)?
-#define ParamLOG_BuzzerInstalled                     ((bool)(knx.paramByte(LOG_BuzzerInstalled) & LOG_BuzzerInstalledMask))
-// Optischer Signalgeber vorhanden (RGB-LED)?
-#define ParamLOG_LedInstalled                        ((bool)(knx.paramByte(LOG_LedInstalled) & LOG_LedInstalledMask))
+// Verf├╝gbare Kan├ñle
+#define ParamLOG_VisibleChannels                     (knx.paramByte(LOG_VisibleChannels))
 // Urlaubsbehandlung aktivieren?
 #define ParamLOG_VacationKo                          ((bool)(knx.paramByte(LOG_VacationKo) & LOG_VacationKoMask))
-// Feiertage auf dem Bus verfügbar machen?
+// Feiertage auf dem Bus verf├╝gbar machen?
 #define ParamLOG_HolidayKo                           ((bool)(knx.paramByte(LOG_HolidayKo) & LOG_HolidayKoMask))
 // Nach Neustart Urlaubsinfo lesen?
 #define ParamLOG_VacationRead                        ((bool)(knx.paramByte(LOG_VacationRead) & LOG_VacationReadMask))
@@ -1443,7 +1377,7 @@
 #define ParamLOG_HolidaySend                         ((bool)(knx.paramByte(LOG_HolidaySend) & LOG_HolidaySendMask))
 // 1. Neujahr
 #define ParamLOG_Neujahr                             ((bool)(knx.paramByte(LOG_Neujahr) & LOG_NeujahrMask))
-// 2. Heilige Drei Könige
+// 2. Heilige Drei K├Ânige
 #define ParamLOG_DreiKoenige                         ((bool)(knx.paramByte(LOG_DreiKoenige) & LOG_DreiKoenigeMask))
 // 3. Weiberfastnacht
 #define ParamLOG_Weiberfastnacht                     ((bool)(knx.paramByte(LOG_Weiberfastnacht) & LOG_WeiberfastnachtMask))
@@ -1455,7 +1389,7 @@
 #define ParamLOG_Aschermittwoch                      ((bool)(knx.paramByte(LOG_Aschermittwoch) & LOG_AschermittwochMask))
 // 7. Frauentag
 #define ParamLOG_Frauentag                           ((bool)(knx.paramByte(LOG_Frauentag) & LOG_FrauentagMask))
-// 8. Gründonnerstag
+// 8. Gr├╝ndonnerstag
 #define ParamLOG_Gruendonnerstag                     ((bool)(knx.paramByte(LOG_Gruendonnerstag) & LOG_GruendonnerstagMask))
 // 9. Karfreitag
 #define ParamLOG_Karfreitag                          ((bool)(knx.paramByte(LOG_Karfreitag) & LOG_KarfreitagMask))
@@ -1475,7 +1409,7 @@
 #define ParamLOG_Fronleichnam                        ((bool)(knx.paramByte(LOG_Fronleichnam) & LOG_FronleichnamMask))
 // 17. Hohes Friedensfest
 #define ParamLOG_Friedensfest                        ((bool)(knx.paramByte(LOG_Friedensfest) & LOG_FriedensfestMask))
-// 18. Mariä Himmelfahrt
+// 18. Mari├ñ Himmelfahrt
 #define ParamLOG_MariaHimmelfahrt                    ((bool)(knx.paramByte(LOG_MariaHimmelfahrt) & LOG_MariaHimmelfahrtMask))
 // 19. Tag der Deutschen Einheit
 #define ParamLOG_DeutscheEinheit                     ((bool)(knx.paramByte(LOG_DeutscheEinheit) & LOG_DeutscheEinheitMask))
@@ -1483,7 +1417,7 @@
 #define ParamLOG_Reformationstag                     ((bool)(knx.paramByte(LOG_Reformationstag) & LOG_ReformationstagMask))
 // 21. Allerheiligen
 #define ParamLOG_Allerheiligen                       ((bool)(knx.paramByte(LOG_Allerheiligen) & LOG_AllerheiligenMask))
-// 22. Buß- und Bettag
+// 22. Bu├ƒ- und Bettag
 #define ParamLOG_BussBettag                          ((bool)(knx.paramByte(LOG_BussBettag) & LOG_BussBettagMask))
 // 23. Erster Advent
 #define ParamLOG_Advent1                             ((bool)(knx.paramByte(LOG_Advent1) & LOG_Advent1Mask))
@@ -1503,7 +1437,7 @@
 #define ParamLOG_Silvester                           ((bool)(knx.paramByte(LOG_Silvester) & LOG_SilvesterMask))
 // 31. Nationalfeiertag (AT)
 #define ParamLOG_Nationalfeiertag                    ((bool)(knx.paramByte(LOG_Nationalfeiertag) & LOG_NationalfeiertagMask))
-// 32. Maria Empfängnis (AT)
+// 32. Maria Empf├ñngnis (AT)
 #define ParamLOG_MariaEmpfaengnis                    ((bool)(knx.paramByte(LOG_MariaEmpfaengnis) & LOG_MariaEmpfaengnisMask))
 // 33. Nationalfeiertag (CH)
 #define ParamLOG_NationalfeiertagSchweiz             ((bool)(knx.paramByte(LOG_NationalfeiertagSchweiz) & LOG_NationalfeiertagSchweizMask))
@@ -1511,16 +1445,6 @@
 #define ParamLOG_Totensonntag                        ((bool)(knx.paramByte(LOG_Totensonntag) & LOG_TotensonntagMask))
 // 35. Weltkindertag
 #define ParamLOG_Weltkindertag                       ((bool)(knx.paramByte(LOG_Weltkindertag) & LOG_WeltkindertagMask))
-// Frequenz für Buzzer (leise)
-#define ParamLOG_BuzzerSilent                        (knx.paramWord(LOG_BuzzerSilent))
-// Frequenz für Buzzer (normal)
-#define ParamLOG_BuzzerNormal                        (knx.paramWord(LOG_BuzzerNormal))
-// Frequenz für Buzzer (laut)
-#define ParamLOG_BuzzerLoud                          (knx.paramWord(LOG_BuzzerLoud))
-// Verfügbare Kanäle
-#define ParamLOG_VisibleChannels                     (knx.paramByte(LOG_VisibleChannels))
-// Lötpad A / B / C entspricht
-#define ParamLOG_LedMapping                          ((knx.paramByte(LOG_LedMapping) & LOG_LedMappingMask) >> LOG_LedMappingShift)
 // Formeldefinition
 #define ParamLOG_UserFormula1                        (knx.paramData(LOG_UserFormula1))
 #define ParamLOG_UserFormula1Str                     (knx.paramString(LOG_UserFormula1, LOG_UserFormula1Length))
@@ -1675,8 +1599,6 @@
 #define LOG_KoVacation 15
 #define LOG_KoHoliday1 16
 #define LOG_KoHoliday2 17
-#define LOG_KoLedLock 18
-#define LOG_KoBuzzerLock 19
 
 // Urlaub
 #define KoLOG_Vacation                            (knx.getGroupObject(LOG_KoVacation))
@@ -1684,16 +1606,12 @@
 #define KoLOG_Holiday1                            (knx.getGroupObject(LOG_KoHoliday1))
 // Welcher Feiertag ist morgen?
 #define KoLOG_Holiday2                            (knx.getGroupObject(LOG_KoHoliday2))
-// LED sperren
-#define KoLOG_LedLock                             (knx.getGroupObject(LOG_KoLedLock))
-// Buzzer sperren
-#define KoLOG_BuzzerLock                          (knx.getGroupObject(LOG_KoBuzzerLock))
 
 #define LOG_ChannelCount 50
 
 // Parameter per channel
-#define LOG_ParamBlockOffset 7031
-#define LOG_ParamBlockSize 85
+#define LOG_ParamBlockOffset 7012
+#define LOG_ParamBlockSize 87
 #define LOG_ParamCalcIndex(index) (index + LOG_ParamBlockOffset + _channelIndex * LOG_ParamBlockSize)
 
 #define LOG_fChannelDelayBase                    0      // 2 Bits, Bit 7-6
@@ -1709,9 +1627,6 @@
 #define LOG_fDisable                             3      // 1 Bit, Bit 2
 #define     LOG_fDisableMask 0x04
 #define     LOG_fDisableShift 2
-#define LOG_fAlarm                               3      // 1 Bit, Bit 3
-#define     LOG_fAlarmMask 0x08
-#define     LOG_fAlarmShift 3
 #define LOG_fTGate                               3      // 1 Bit, Bit 4
 #define     LOG_fTGateMask 0x10
 #define     LOG_fTGateShift 4
@@ -2414,183 +2329,197 @@
 #define LOG_fI1AsTrigger                        36      // 1 Bit, Bit 3
 #define     LOG_fI1AsTriggerMask 0x08
 #define     LOG_fI1AsTriggerShift 3
+#define LOG_fI1InternalInputType                36      // 1 Bit, Bit 2
+#define     LOG_fI1InternalInputTypeMask 0x04
+#define     LOG_fI1InternalInputTypeShift 2
 #define LOG_fI1Function                         37      // uint8_t
 #define LOG_fI1FunctionRel                      37      // int8_t
-#define LOG_fI2                                 38      // 2 Bits, Bit 7-6
+#define LOG_fI1StatusLed                        37      // 16 Bits, Bit 15-0
+#define LOG_fI2                                 39      // 2 Bits, Bit 7-6
 #define     LOG_fI2Mask 0xC0
 #define     LOG_fI2Shift 6
-#define LOG_fI2Kind                             38      // 2 Bits, Bit 5-4
+#define LOG_fI2Kind                             39      // 2 Bits, Bit 5-4
 #define     LOG_fI2KindMask 0x30
 #define     LOG_fI2KindShift 4
-#define LOG_fI2AsTrigger                        38      // 1 Bit, Bit 3
+#define LOG_fI2AsTrigger                        39      // 1 Bit, Bit 3
 #define     LOG_fI2AsTriggerMask 0x08
 #define     LOG_fI2AsTriggerShift 3
-#define LOG_fI2Function                         39      // uint8_t
-#define LOG_fI2FunctionRel                      39      // int8_t
-#define LOG_fOStairtimeBase                     40      // 2 Bits, Bit 7-6
+#define LOG_fI2InternalInputType                39      // 1 Bit, Bit 2
+#define     LOG_fI2InternalInputTypeMask 0x04
+#define     LOG_fI2InternalInputTypeShift 2
+#define LOG_fI2Function                         40      // uint8_t
+#define LOG_fI2FunctionRel                      40      // int8_t
+#define LOG_fI2StatusLed                        40      // 16 Bits, Bit 15-0
+#define LOG_fOStairtimeBase                     42      // 2 Bits, Bit 7-6
 #define     LOG_fOStairtimeBaseMask 0xC0
 #define     LOG_fOStairtimeBaseShift 6
-#define LOG_fOStairtimeTime                     40      // 14 Bits, Bit 13-0
+#define LOG_fOStairtimeTime                     42      // 14 Bits, Bit 13-0
 #define     LOG_fOStairtimeTimeMask 0x3FFF
 #define     LOG_fOStairtimeTimeShift 0
-#define LOG_fOBlinkBase                         42      // 2 Bits, Bit 7-6
+#define LOG_fOBlinkBase                         44      // 2 Bits, Bit 7-6
 #define     LOG_fOBlinkBaseMask 0xC0
 #define     LOG_fOBlinkBaseShift 6
-#define LOG_fOBlinkTime                         42      // 14 Bits, Bit 13-0
+#define LOG_fOBlinkTime                         44      // 14 Bits, Bit 13-0
 #define     LOG_fOBlinkTimeMask 0x3FFF
 #define     LOG_fOBlinkTimeShift 0
-#define LOG_fODelayOnBase                       44      // 2 Bits, Bit 7-6
+#define LOG_fODelayOnBase                       46      // 2 Bits, Bit 7-6
 #define     LOG_fODelayOnBaseMask 0xC0
 #define     LOG_fODelayOnBaseShift 6
-#define LOG_fODelayOnTime                       44      // 14 Bits, Bit 13-0
+#define LOG_fODelayOnTime                       46      // 14 Bits, Bit 13-0
 #define     LOG_fODelayOnTimeMask 0x3FFF
 #define     LOG_fODelayOnTimeShift 0
-#define LOG_fODelayOffBase                      46      // 2 Bits, Bit 7-6
+#define LOG_fODelayOffBase                      48      // 2 Bits, Bit 7-6
 #define     LOG_fODelayOffBaseMask 0xC0
 #define     LOG_fODelayOffBaseShift 6
-#define LOG_fODelayOffTime                      46      // 14 Bits, Bit 13-0
+#define LOG_fODelayOffTime                      48      // 14 Bits, Bit 13-0
 #define     LOG_fODelayOffTimeMask 0x3FFF
 #define     LOG_fODelayOffTimeShift 0
-#define LOG_fORepeatOnBase                      48      // 2 Bits, Bit 7-6
+#define LOG_fORepeatOnBase                      50      // 2 Bits, Bit 7-6
 #define     LOG_fORepeatOnBaseMask 0xC0
 #define     LOG_fORepeatOnBaseShift 6
-#define LOG_fORepeatOnTime                      48      // 14 Bits, Bit 13-0
+#define LOG_fORepeatOnTime                      50      // 14 Bits, Bit 13-0
 #define     LOG_fORepeatOnTimeMask 0x3FFF
 #define     LOG_fORepeatOnTimeShift 0
-#define LOG_fORepeatOffBase                     50      // 2 Bits, Bit 7-6
+#define LOG_fORepeatOffBase                     52      // 2 Bits, Bit 7-6
 #define     LOG_fORepeatOffBaseMask 0xC0
 #define     LOG_fORepeatOffBaseShift 6
-#define LOG_fORepeatOffTime                     50      // 14 Bits, Bit 13-0
+#define LOG_fORepeatOffTime                     52      // 14 Bits, Bit 13-0
 #define     LOG_fORepeatOffTimeMask 0x3FFF
 #define     LOG_fORepeatOffTimeShift 0
-#define LOG_fODelay                             52      // 1 Bit, Bit 7
+#define LOG_fODelay                             54      // 1 Bit, Bit 7
 #define     LOG_fODelayMask 0x80
 #define     LOG_fODelayShift 7
-#define LOG_fODelayOnRepeat                     52      // 2 Bits, Bit 6-5
+#define LOG_fODelayOnRepeat                     54      // 2 Bits, Bit 6-5
 #define     LOG_fODelayOnRepeatMask 0x60
 #define     LOG_fODelayOnRepeatShift 5
-#define LOG_fODelayOnReset                      52      // 1 Bit, Bit 4
+#define LOG_fODelayOnReset                      54      // 1 Bit, Bit 4
 #define     LOG_fODelayOnResetMask 0x10
 #define     LOG_fODelayOnResetShift 4
-#define LOG_fODelayOffRepeat                    52      // 2 Bits, Bit 3-2
+#define LOG_fODelayOffRepeat                    54      // 2 Bits, Bit 3-2
 #define     LOG_fODelayOffRepeatMask 0x0C
 #define     LOG_fODelayOffRepeatShift 2
-#define LOG_fODelayOffReset                     52      // 1 Bit, Bit 1
+#define LOG_fODelayOffReset                     54      // 1 Bit, Bit 1
 #define     LOG_fODelayOffResetMask 0x02
 #define     LOG_fODelayOffResetShift 1
-#define LOG_fOStair                             52      // 1 Bit, Bit 0
+#define LOG_fOStair                             54      // 1 Bit, Bit 0
 #define     LOG_fOStairMask 0x01
 #define     LOG_fOStairShift 0
-#define LOG_fORetrigger                         53      // 1 Bit, Bit 7
+#define LOG_fORetrigger                         55      // 1 Bit, Bit 7
 #define     LOG_fORetriggerMask 0x80
 #define     LOG_fORetriggerShift 7
-#define LOG_fOStairOff                          53      // 1 Bit, Bit 6
+#define LOG_fOStairOff                          55      // 1 Bit, Bit 6
 #define     LOG_fOStairOffMask 0x40
 #define     LOG_fOStairOffShift 6
-#define LOG_fORepeat                            53      // 1 Bit, Bit 5
+#define LOG_fORepeat                            55      // 1 Bit, Bit 5
 #define     LOG_fORepeatMask 0x20
 #define     LOG_fORepeatShift 5
-#define LOG_fOOutputFilter                      53      // 2 Bits, Bit 4-3
+#define LOG_fOOutputFilter                      55      // 2 Bits, Bit 4-3
 #define     LOG_fOOutputFilterMask 0x18
 #define     LOG_fOOutputFilterShift 3
-#define LOG_fOSendOnChange                      53      // 1 Bit, Bit 2
+#define LOG_fOSendOnChange                      55      // 1 Bit, Bit 2
 #define     LOG_fOSendOnChangeMask 0x04
 #define     LOG_fOSendOnChangeShift 2
-#define LOG_fODpt                               54      // 8 Bits, Bit 7-0
-#define LOG_fOOn                                55      // 8 Bits, Bit 7-0
-#define LOG_fOOnBuzzer                          55      // 8 Bits, Bit 7-0
-#define LOG_fOOnLed                             55      // 8 Bits, Bit 7-0
-#define LOG_fOOnAll                             55      // 8 Bits, Bit 7-0
-#define LOG_fOOnTone                            56      // 8 Bits, Bit 7-0
-#define LOG_fOOnDpt1                            56      // 8 Bits, Bit 7-0
-#define LOG_fOOnDpt2                            56      // 8 Bits, Bit 7-0
-#define LOG_fOOnDpt3Dir                         56      // 5 Bits, Bit 7-3
+#define LOG_fODpt                               56      // 8 Bits, Bit 7-0
+#define LOG_fOOnAll                             57      // 8 Bits, Bit 7-0
+#define LOG_fOOnDpt1                            58      // 8 Bits, Bit 7-0
+#define LOG_fOOnDpt2                            58      // 8 Bits, Bit 7-0
+#define LOG_fOOnDpt3Dir                         58      // 5 Bits, Bit 7-3
 #define     LOG_fOOnDpt3DirMask 0xF8
 #define     LOG_fOOnDpt3DirShift 3
-#define LOG_fOOnDpt3Dim                         56      // 3 Bits, Bit 2-0
+#define LOG_fOOnDpt3Dim                         58      // 3 Bits, Bit 2-0
 #define     LOG_fOOnDpt3DimMask 0x07
 #define     LOG_fOOnDpt3DimShift 0
-#define LOG_fOOnDpt5                            56      // uint8_t
-#define LOG_fOOnDpt5001                         56      // uint8_t
-#define LOG_fOOnDpt6                            56      // int8_t
-#define LOG_fOOnDpt7                            56      // uint16_t
-#define LOG_fOOnDpt8                            56      // int16_t
-#define LOG_fOOnDpt9                            56      // float
-#define LOG_fOOnDpt12                           56      // uint32_t
-#define LOG_fOOnDpt13                           56      // int32_t
-#define LOG_fOOnDpt14                           56      // float
-#define LOG_fOOnDpt16                           56      // char*, 14 Byte
+#define LOG_fOOnDpt5                            58      // uint8_t
+#define LOG_fOOnDpt5001                         58      // uint8_t
+#define LOG_fOOnDpt6                            58      // int8_t
+#define LOG_fOOnDpt7                            58      // uint16_t
+#define LOG_fOOnDpt8                            58      // int16_t
+#define LOG_fOOnDpt9                            58      // float
+#define LOG_fOOnDpt12                           58      // uint32_t
+#define LOG_fOOnDpt13                           58      // int32_t
+#define LOG_fOOnDpt14                           58      // float
+#define LOG_fOOnDpt16                           58      // char*, 14 Byte
 #define     LOG_fOOnDpt16Length 14
-#define LOG_fOOnDpt17                           56      // 8 Bits, Bit 7-0
-#define LOG_fOOnRGB                             56      // 24 Bits, Bit 31-8
+#define LOG_fOOnDpt17                           58      // 8 Bits, Bit 7-0
+#define LOG_fOOnRGB                             58      // 24 Bits, Bit 31-8
 #define     LOG_fOOnRGBMask 0xFFFFFF00
 #define     LOG_fOOnRGBShift 8
-#define LOG_fOOnPAArea                          56      // 4 Bits, Bit 7-4
+#define LOG_fOOnLedProvider                     62      // 3 Bits, Bit 2-0
+#define     LOG_fOOnLedProviderMask 0x07
+#define     LOG_fOOnLedProviderShift 0
+#define LOG_fOOnLedEffect                       63      // 3 Bits, Bit 2-0
+#define     LOG_fOOnLedEffectMask 0x07
+#define     LOG_fOOnLedEffectShift 0
+#define LOG_fOOnLedDuration                     64      // uint16_t
+#define LOG_fOOnPAArea                          58      // 4 Bits, Bit 7-4
 #define     LOG_fOOnPAAreaMask 0xF0
 #define     LOG_fOOnPAAreaShift 4
-#define LOG_fOOnPALine                          56      // 4 Bits, Bit 3-0
+#define LOG_fOOnPALine                          58      // 4 Bits, Bit 3-0
 #define     LOG_fOOnPALineMask 0x0F
 #define     LOG_fOOnPALineShift 0
-#define LOG_fOOnPADevice                        57      // uint8_t
-#define LOG_fOOnFunction                        56      // 8 Bits, Bit 7-0
-#define LOG_fOOnKOKind                          61      // 2 Bits, Bit 7-6
+#define LOG_fOOnPADevice                        59      // uint8_t
+#define LOG_fOOnFunction                        58      // 8 Bits, Bit 7-0
+#define LOG_fOOnKOKind                          63      // 2 Bits, Bit 7-6
 #define     LOG_fOOnKOKindMask 0xC0
 #define     LOG_fOOnKOKindShift 6
-#define LOG_fOOnKONumber                        56      // uint16_t
-#define LOG_fOOnKONumberRel                     56      // int16_t
-#define LOG_fOOnKODpt                           58      // 8 Bits, Bit 7-0
-#define LOG_fOOnKOSend                          61      // 2 Bits, Bit 5-4
+#define LOG_fOOnKONumber                        58      // uint16_t
+#define LOG_fOOnKONumberRel                     58      // int16_t
+#define LOG_fOOnKODpt                           60      // 8 Bits, Bit 7-0
+#define LOG_fOOnKOSend                          63      // 2 Bits, Bit 5-4
 #define     LOG_fOOnKOSendMask 0x30
 #define     LOG_fOOnKOSendShift 4
-#define LOG_fOOnKOSendNumber                    62      // uint16_t
-#define LOG_fOOnKOSendNumberRel                 62      // int16_t
-#define LOG_fOOff                               70      // 8 Bits, Bit 7-0
-#define LOG_fOOffBuzzer                         70      // 8 Bits, Bit 7-0
-#define LOG_fOOffLed                            70      // 8 Bits, Bit 7-0
-#define LOG_fOOffAll                            70      // 8 Bits, Bit 7-0
-#define LOG_fOOffTone                           71      // 8 Bits, Bit 7-0
-#define LOG_fOOffDpt1                           71      // 8 Bits, Bit 7-0
-#define LOG_fOOffDpt2                           71      // 8 Bits, Bit 7-0
-#define LOG_fOOffDpt3Dir                        71      // 5 Bits, Bit 7-3
+#define LOG_fOOnKOSendNumber                    64      // uint16_t
+#define LOG_fOOnKOSendNumberRel                 64      // int16_t
+#define LOG_fOOffAll                            72      // 8 Bits, Bit 7-0
+#define LOG_fOOffDpt1                           73      // 8 Bits, Bit 7-0
+#define LOG_fOOffDpt2                           73      // 8 Bits, Bit 7-0
+#define LOG_fOOffDpt3Dir                        73      // 5 Bits, Bit 7-3
 #define     LOG_fOOffDpt3DirMask 0xF8
 #define     LOG_fOOffDpt3DirShift 3
-#define LOG_fOOffDpt3Dim                        71      // 3 Bits, Bit 2-0
+#define LOG_fOOffDpt3Dim                        73      // 3 Bits, Bit 2-0
 #define     LOG_fOOffDpt3DimMask 0x07
 #define     LOG_fOOffDpt3DimShift 0
-#define LOG_fOOffDpt5                           71      // uint8_t
-#define LOG_fOOffDpt5001                        71      // uint8_t
-#define LOG_fOOffDpt6                           71      // int8_t
-#define LOG_fOOffDpt7                           71      // uint16_t
-#define LOG_fOOffDpt8                           71      // int16_t
-#define LOG_fOOffDpt9                           71      // float
-#define LOG_fOOffDpt12                          71      // uint32_t
-#define LOG_fOOffDpt13                          71      // int32_t
-#define LOG_fOOffDpt14                          71      // float
-#define LOG_fOOffDpt16                          71      // char*, 14 Byte
+#define LOG_fOOffDpt5                           73      // uint8_t
+#define LOG_fOOffDpt5001                        73      // uint8_t
+#define LOG_fOOffDpt6                           73      // int8_t
+#define LOG_fOOffDpt7                           73      // uint16_t
+#define LOG_fOOffDpt8                           73      // int16_t
+#define LOG_fOOffDpt9                           73      // float
+#define LOG_fOOffDpt12                          73      // uint32_t
+#define LOG_fOOffDpt13                          73      // int32_t
+#define LOG_fOOffDpt14                          73      // float
+#define LOG_fOOffDpt16                          73      // char*, 14 Byte
 #define     LOG_fOOffDpt16Length 14
-#define LOG_fOOffDpt17                          71      // 8 Bits, Bit 7-0
-#define LOG_fOOffRGB                            71      // 24 Bits, Bit 31-8
+#define LOG_fOOffDpt17                          73      // 8 Bits, Bit 7-0
+#define LOG_fOOffRGB                            73      // 24 Bits, Bit 31-8
 #define     LOG_fOOffRGBMask 0xFFFFFF00
 #define     LOG_fOOffRGBShift 8
-#define LOG_fOOffPAArea                         71      // 4 Bits, Bit 7-4
+#define LOG_fOOffLedProvider                    77      // 3 Bits, Bit 2-0
+#define     LOG_fOOffLedProviderMask 0x07
+#define     LOG_fOOffLedProviderShift 0
+#define LOG_fOOffLedEffect                      78      // 3 Bits, Bit 2-0
+#define     LOG_fOOffLedEffectMask 0x07
+#define     LOG_fOOffLedEffectShift 0
+#define LOG_fOOffLedDuration                    79      // uint16_t
+#define LOG_fOOffPAArea                         73      // 4 Bits, Bit 7-4
 #define     LOG_fOOffPAAreaMask 0xF0
 #define     LOG_fOOffPAAreaShift 4
-#define LOG_fOOffPALine                         71      // 4 Bits, Bit 3-0
+#define LOG_fOOffPALine                         73      // 4 Bits, Bit 3-0
 #define     LOG_fOOffPALineMask 0x0F
 #define     LOG_fOOffPALineShift 0
-#define LOG_fOOffPADevice                       72      // uint8_t
-#define LOG_fOOffFunction                       71      // 8 Bits, Bit 7-0
-#define LOG_fOOffKOKind                         76      // 2 Bits, Bit 7-6
+#define LOG_fOOffPADevice                       74      // uint8_t
+#define LOG_fOOffFunction                       73      // 8 Bits, Bit 7-0
+#define LOG_fOOffKOKind                         78      // 2 Bits, Bit 7-6
 #define     LOG_fOOffKOKindMask 0xC0
 #define     LOG_fOOffKOKindShift 6
-#define LOG_fOOffKONumber                       71      // uint16_t
-#define LOG_fOOffKONumberRel                    71      // int16_t
-#define LOG_fOOffKODpt                          73      // 8 Bits, Bit 7-0
-#define LOG_fOOffKOSend                         76      // 2 Bits, Bit 5-4
+#define LOG_fOOffKONumber                       73      // uint16_t
+#define LOG_fOOffKONumberRel                    73      // int16_t
+#define LOG_fOOffKODpt                          75      // 8 Bits, Bit 7-0
+#define LOG_fOOffKOSend                         78      // 2 Bits, Bit 5-4
 #define     LOG_fOOffKOSendMask 0x30
 #define     LOG_fOOffKOSendShift 4
-#define LOG_fOOffKOSendNumber                   77      // uint16_t
-#define LOG_fOOffKOSendNumberRel                77      // int16_t
+#define LOG_fOOffKOSendNumber                   79      // uint16_t
+#define LOG_fOOffKOSendNumberRel                79      // int16_t
 
 // Zeit bis der Kanal nach einem Neustart aktiv wird
 #define ParamLOG_fChannelDelayBase                   ((knx.paramByte(LOG_ParamCalcIndex(LOG_fChannelDelayBase)) & LOG_fChannelDelayBaseMask) >> LOG_fChannelDelayBaseShift)
@@ -2604,8 +2533,6 @@
 #define ParamLOG_fCalculate                          (knx.paramByte(LOG_ParamCalcIndex(LOG_fCalculate)) & LOG_fCalculateMask)
 // Kanal deaktivieren (zu Testzwecken)
 #define ParamLOG_fDisable                            ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fDisable)) & LOG_fDisableMask))
-// Alarmausgabe (Buzzer oder LED trotz Sperre schalten)?
-#define ParamLOG_fAlarm                              ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fAlarm)) & LOG_fAlarmMask))
 // Tor geht sofort wieder zu
 #define ParamLOG_fTGate                              ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fTGate)) & LOG_fTGateMask))
 // Wert EIN intern weiterleiten
@@ -2624,23 +2551,23 @@
 #define ParamLOG_fTriggerI2                          ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fTriggerI2)) & LOG_fTriggerI2Mask))
 // Logik sendet ihren Wert weiter
 #define ParamLOG_fTriggerTime                        (knx.paramByte(LOG_ParamCalcIndex(LOG_fTriggerTime)))
-// Beim schließen vom Tor wird
+// Beim schlie├ƒen vom Tor wird
 #define ParamLOG_fTriggerGateClose                   ((knx.paramByte(LOG_ParamCalcIndex(LOG_fTriggerGateClose)) & LOG_fTriggerGateCloseMask) >> LOG_fTriggerGateCloseShift)
-// Beim öffnen vom Tor wird
+// Beim ├Âffnen vom Tor wird
 #define ParamLOG_fTriggerGateOpen                    ((knx.paramByte(LOG_ParamCalcIndex(LOG_fTriggerGateOpen)) & LOG_fTriggerGateOpenMask) >> LOG_fTriggerGateOpenShift)
-// Wert für Eingang wird ermittelt durch
+// Wert f├╝r Eingang wird ermittelt durch
 #define ParamLOG_fE1ConvertInt                       ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1ConvertInt)) & LOG_fE1ConvertIntMask) >> LOG_fE1ConvertIntShift)
-// Wert für Eingang wird ermittelt durch
+// Wert f├╝r Eingang wird ermittelt durch
 #define ParamLOG_fE1Convert                          ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Convert)) & LOG_fE1ConvertMask) >> LOG_fE1ConvertShift)
-// Wert für Eingang wird ermittelt durch
+// Wert f├╝r Eingang wird ermittelt durch
 #define ParamLOG_fE1ConvertFloat                     ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1ConvertFloat)) & LOG_fE1ConvertFloatMask) >> LOG_fE1ConvertFloatShift)
-// Wert für Eingang wird ermittelt durch
+// Wert f├╝r Eingang wird ermittelt durch
 #define ParamLOG_fE1ConvertSpecial                   ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1ConvertSpecial)) & LOG_fE1ConvertSpecialMask) >> LOG_fE1ConvertSpecialShift)
-// Wert für Eingang wird ermittelt durch
+// Wert f├╝r Eingang wird ermittelt durch
 #define ParamLOG_fE1ConvertBool                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1ConvertBool)) & LOG_fE1ConvertBoolMask) >> LOG_fE1ConvertBoolShift)
 // Eingang 1
 #define ParamLOG_fE1                                 (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1)) & LOG_fE1Mask)
-// DPT für Eingang
+// DPT f├╝r Eingang
 #define ParamLOG_fE1Dpt                              (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Dpt)))
 // Eingang wird gelesen alle
 #define ParamLOG_fE1RepeatBase                       ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1RepeatBase)) & LOG_fE1RepeatBaseMask) >> LOG_fE1RepeatBaseShift)
@@ -2652,15 +2579,15 @@
 #define ParamLOG_fE1OtherKO                          (knx.paramWord(LOG_ParamCalcIndex(LOG_fE1OtherKO)))
 //     Nummer des Kommunikationsobjekts
 #define ParamLOG_fE1OtherKORel                       ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE1OtherKORel)))
-// Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit
+// Falls Vorbelegung aus dem Speicher nicht m├Âglich oder nicht gew├╝nscht, dann vorbelegen mit
 #define ParamLOG_fE1Default                          (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Default)) & LOG_fE1DefaultMask)
 // Eingang vorbelegen mit
 #define ParamLOG_fE1DefaultExt                       (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1DefaultExt)) & LOG_fE1DefaultExtMask)
-// Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?
+// Eingangswert speichern und beim n├ñchsten Neustart als Vorbelegung nutzen?
 #define ParamLOG_fE1DefaultEEPROM                    ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1DefaultEEPROM)) & LOG_fE1DefaultEEPROMMask))
 // Nur so lange zyklisch lesen, bis erstes Telegramm eingeht
 #define ParamLOG_fE1DefaultRepeat                    ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1DefaultRepeat)) & LOG_fE1DefaultRepeatMask))
-// Kommunikationsobjekt für Eingang
+// Kommunikationsobjekt f├╝r Eingang
 #define ParamLOG_fE1UseOtherKO                       ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1UseOtherKO)) & LOG_fE1UseOtherKOMask) >> LOG_fE1UseOtherKOShift)
 // Von-Wert
 #define ParamLOG_fE1LowDelta                         ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1LowDelta)))
@@ -2674,19 +2601,19 @@
 #define ParamLOG_fE1LowDeltaDouble                   (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE1LowDeltaDouble), Float_Enc_IEEE754Single))
 // Bis-Wert
 #define ParamLOG_fE1HighDeltaDouble                  (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE1HighDeltaDouble), Float_Enc_IEEE754Single))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE1Low0Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low0Valid)) & LOG_fE1Low0ValidMask))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE1Low1Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low1Valid)) & LOG_fE1Low1ValidMask))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE1Low2Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low2Valid)) & LOG_fE1Low2ValidMask))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE1Low3Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low3Valid)) & LOG_fE1Low3ValidMask))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE1Low4Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low4Valid)) & LOG_fE1Low4ValidMask))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE1Low5Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low5Valid)) & LOG_fE1Low5ValidMask))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE1Low6Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low6Valid)) & LOG_fE1Low6ValidMask))
 // Eingang ist EIN, wenn Wert gleich
 #define ParamLOG_fE1Low0Dpt2                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low0Dpt2)))
@@ -2850,19 +2777,19 @@
 #define ParamLOG_fE1HighDptRGB                       ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1HighDptRGB)))
 // Eingang ist konstant
 #define ParamLOG_fE1LowDptRGBFix                     ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1LowDptRGBFix)))
-// Wert für Eingang wird ermittelt durch
+// Wert f├╝r Eingang wird ermittelt durch
 #define ParamLOG_fE2ConvertInt                       ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2ConvertInt)) & LOG_fE2ConvertIntMask) >> LOG_fE2ConvertIntShift)
-// Wert für Eingang wird ermittelt durch
+// Wert f├╝r Eingang wird ermittelt durch
 #define ParamLOG_fE2Convert                          ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Convert)) & LOG_fE2ConvertMask) >> LOG_fE2ConvertShift)
-// Wert für Eingang wird ermittelt durch
+// Wert f├╝r Eingang wird ermittelt durch
 #define ParamLOG_fE2ConvertFloat                     ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2ConvertFloat)) & LOG_fE2ConvertFloatMask) >> LOG_fE2ConvertFloatShift)
-// Wert für Eingang wird ermittelt durch
+// Wert f├╝r Eingang wird ermittelt durch
 #define ParamLOG_fE2ConvertSpecial                   ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2ConvertSpecial)) & LOG_fE2ConvertSpecialMask) >> LOG_fE2ConvertSpecialShift)
-// Wert für Eingang wird ermittelt durch
+// Wert f├╝r Eingang wird ermittelt durch
 #define ParamLOG_fE2ConvertBool                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2ConvertBool)) & LOG_fE2ConvertBoolMask) >> LOG_fE2ConvertBoolShift)
 // Eingang 2
 #define ParamLOG_fE2                                 (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2)) & LOG_fE2Mask)
-// DPT für Eingang
+// DPT f├╝r Eingang
 #define ParamLOG_fE2Dpt                              (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Dpt)))
 // Eingang wird gelesen alle
 #define ParamLOG_fE2RepeatBase                       ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2RepeatBase)) & LOG_fE2RepeatBaseMask) >> LOG_fE2RepeatBaseShift)
@@ -2874,15 +2801,15 @@
 #define ParamLOG_fE2OtherKO                          (knx.paramWord(LOG_ParamCalcIndex(LOG_fE2OtherKO)))
 //     Nummer des Kommunikationsobjekts
 #define ParamLOG_fE2OtherKORel                       ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE2OtherKORel)))
-// Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit
+// Falls Vorbelegung aus dem Speicher nicht m├Âglich oder nicht gew├╝nscht, dann vorbelegen mit
 #define ParamLOG_fE2Default                          (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Default)) & LOG_fE2DefaultMask)
 // Eingang vorbelegen mit
 #define ParamLOG_fE2DefaultExt                       (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2DefaultExt)) & LOG_fE2DefaultExtMask)
-// Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?
+// Eingangswert speichern und beim n├ñchsten Neustart als Vorbelegung nutzen?
 #define ParamLOG_fE2DefaultEEPROM                    ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2DefaultEEPROM)) & LOG_fE2DefaultEEPROMMask))
 // Nur so lange zyklisch lesen, bis erstes Telegramm eingeht
 #define ParamLOG_fE2DefaultRepeat                    ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2DefaultRepeat)) & LOG_fE2DefaultRepeatMask))
-// Kommunikationsobjekt für Eingang
+// Kommunikationsobjekt f├╝r Eingang
 #define ParamLOG_fE2UseOtherKO                       ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2UseOtherKO)) & LOG_fE2UseOtherKOMask) >> LOG_fE2UseOtherKOShift)
 // Von-Wert
 #define ParamLOG_fE2LowDelta                         ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2LowDelta)))
@@ -2896,19 +2823,19 @@
 #define ParamLOG_fE2LowDeltaDouble                   (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE2LowDeltaDouble), Float_Enc_IEEE754Single))
 // Bis-Wert
 #define ParamLOG_fE2HighDeltaDouble                  (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE2HighDeltaDouble), Float_Enc_IEEE754Single))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE2Low0Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low0Valid)) & LOG_fE2Low0ValidMask))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE2Low1Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low1Valid)) & LOG_fE2Low1ValidMask))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE2Low2Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low2Valid)) & LOG_fE2Low2ValidMask))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE2Low3Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low3Valid)) & LOG_fE2Low3ValidMask))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE2Low4Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low4Valid)) & LOG_fE2Low4ValidMask))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE2Low5Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low5Valid)) & LOG_fE2Low5ValidMask))
-// Nächste Zeile auswerten?
+// N├ñchste Zeile auswerten?
 #define ParamLOG_fE2Low6Valid                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low6Valid)) & LOG_fE2Low6ValidMask))
 // Eingang ist EIN, wenn Wert gleich
 #define ParamLOG_fE2Low0Dpt2                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low0Dpt2)))
@@ -3322,29 +3249,37 @@
 #define ParamLOG_fTy4Month                           ((knx.paramByte(LOG_ParamCalcIndex(LOG_fTy4Month)) & LOG_fTy4MonthMask) >> LOG_fTy4MonthShift)
 // Interner Eingang 3
 #define ParamLOG_fI1                                 ((knx.paramByte(LOG_ParamCalcIndex(LOG_fI1)) & LOG_fI1Mask) >> LOG_fI1Shift)
-// Art der Verknüpfung
+// Art der Verkn├╝pfung
 #define ParamLOG_fI1Kind                             ((knx.paramByte(LOG_ParamCalcIndex(LOG_fI1Kind)) & LOG_fI1KindMask) >> LOG_fI1KindShift)
 // Internen Eingang als Trigger nutzen(ist immer logisch EIN)
 #define ParamLOG_fI1AsTrigger                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fI1AsTrigger)) & LOG_fI1AsTriggerMask))
+// Interner Eingang wird versorgt vom
+#define ParamLOG_fI1InternalInputType                ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fI1InternalInputType)) & LOG_fI1InternalInputTypeMask))
 // Internen Eingang verbinden mit Kanal Nr.
 #define ParamLOG_fI1Function                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fI1Function)))
 // Internen Eingang verbinden mit Kanal Nr.
 #define ParamLOG_fI1FunctionRel                      ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fI1FunctionRel)))
+// Statuskanal
+#define ParamLOG_fI1StatusLed                        (knx.paramWord(LOG_ParamCalcIndex(LOG_fI1StatusLed)))
 // Interner Eingang 4
 #define ParamLOG_fI2                                 ((knx.paramByte(LOG_ParamCalcIndex(LOG_fI2)) & LOG_fI2Mask) >> LOG_fI2Shift)
-// Art der Verknüpfung
+// Art der Verkn├╝pfung
 #define ParamLOG_fI2Kind                             ((knx.paramByte(LOG_ParamCalcIndex(LOG_fI2Kind)) & LOG_fI2KindMask) >> LOG_fI2KindShift)
 // Internen Eingang als Trigger nutzen(ist immer logisch EIN)
 #define ParamLOG_fI2AsTrigger                        ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fI2AsTrigger)) & LOG_fI2AsTriggerMask))
+// Interner Eingang wird versorgt vom
+#define ParamLOG_fI2InternalInputType                ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fI2InternalInputType)) & LOG_fI2InternalInputTypeMask))
 // Internen Eingang verbinden mit Kanal Nr.
 #define ParamLOG_fI2Function                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fI2Function)))
 // Internen Eingang verbinden mit Kanal Nr.
 #define ParamLOG_fI2FunctionRel                      ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fI2FunctionRel)))
-// Zeit für Treppenlicht
+// Statuskanal
+#define ParamLOG_fI2StatusLed                        (knx.paramWord(LOG_ParamCalcIndex(LOG_fI2StatusLed)))
+// Zeit f├╝r Treppenlicht
 #define ParamLOG_fOStairtimeBase                     ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOStairtimeBase)) & LOG_fOStairtimeBaseMask) >> LOG_fOStairtimeBaseShift)
-// Zeit für Treppenlicht
+// Zeit f├╝r Treppenlicht
 #define ParamLOG_fOStairtimeTime                     (knx.paramWord(LOG_ParamCalcIndex(LOG_fOStairtimeTime)) & LOG_fOStairtimeTimeMask)
-// Zeit für Treppenlicht (in Millisekunden)
+// Zeit f├╝r Treppenlicht (in Millisekunden)
 #define ParamLOG_fOStairtimeTimeMS                   (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fOStairtimeTime))))
 // Treppenlicht blinkt im Rhythmus
 #define ParamLOG_fOBlinkBase                         ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOBlinkBase)) & LOG_fOBlinkBaseMask) >> LOG_fOBlinkBaseShift)
@@ -3352,17 +3287,17 @@
 #define ParamLOG_fOBlinkTime                         (knx.paramWord(LOG_ParamCalcIndex(LOG_fOBlinkTime)) & LOG_fOBlinkTimeMask)
 // Treppenlicht blinkt im Rhythmus (in Millisekunden)
 #define ParamLOG_fOBlinkTimeMS                       (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fOBlinkTime))))
-// EINschalten wird verzögert um
+// EINschalten wird verz├Âgert um
 #define ParamLOG_fODelayOnBase                       ((knx.paramByte(LOG_ParamCalcIndex(LOG_fODelayOnBase)) & LOG_fODelayOnBaseMask) >> LOG_fODelayOnBaseShift)
-// EINschalten wird verzögert um
+// EINschalten wird verz├Âgert um
 #define ParamLOG_fODelayOnTime                       (knx.paramWord(LOG_ParamCalcIndex(LOG_fODelayOnTime)) & LOG_fODelayOnTimeMask)
-// EINschalten wird verzögert um (in Millisekunden)
+// EINschalten wird verz├Âgert um (in Millisekunden)
 #define ParamLOG_fODelayOnTimeMS                     (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fODelayOnTime))))
-// AUSschalten wird verzögert um
+// AUSschalten wird verz├Âgert um
 #define ParamLOG_fODelayOffBase                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fODelayOffBase)) & LOG_fODelayOffBaseMask) >> LOG_fODelayOffBaseShift)
-// AUSschalten wird verzögert um
+// AUSschalten wird verz├Âgert um
 #define ParamLOG_fODelayOffTime                      (knx.paramWord(LOG_ParamCalcIndex(LOG_fODelayOffTime)) & LOG_fODelayOffTimeMask)
-// AUSschalten wird verzögert um (in Millisekunden)
+// AUSschalten wird verz├Âgert um (in Millisekunden)
 #define ParamLOG_fODelayOffTimeMS                    (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fODelayOffTime))))
 // EIN-Telegramm wird wiederholt alle
 #define ParamLOG_fORepeatOnBase                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fORepeatOnBase)) & LOG_fORepeatOnBaseMask) >> LOG_fORepeatOnBaseShift)
@@ -3376,19 +3311,19 @@
 #define ParamLOG_fORepeatOffTime                     (knx.paramWord(LOG_ParamCalcIndex(LOG_fORepeatOffTime)) & LOG_fORepeatOffTimeMask)
 // AUS-Telegramm wird wiederholt alle (in Millisekunden)
 #define ParamLOG_fORepeatOffTimeMS                   (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fORepeatOffTime))))
-// Ausgang schaltet zeitverzögert
+// Ausgang schaltet zeitverz├Âgert
 #define ParamLOG_fODelay                             ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fODelay)) & LOG_fODelayMask))
-// Erneutes EIN führt zu
+// Erneutes EIN f├╝hrt zu
 #define ParamLOG_fODelayOnRepeat                     ((knx.paramByte(LOG_ParamCalcIndex(LOG_fODelayOnRepeat)) & LOG_fODelayOnRepeatMask) >> LOG_fODelayOnRepeatShift)
-// Darauffolgendes AUS führt zu
+// Darauffolgendes AUS f├╝hrt zu
 #define ParamLOG_fODelayOnReset                      ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fODelayOnReset)) & LOG_fODelayOnResetMask))
-// Erneutes AUS führt zu
+// Erneutes AUS f├╝hrt zu
 #define ParamLOG_fODelayOffRepeat                    ((knx.paramByte(LOG_ParamCalcIndex(LOG_fODelayOffRepeat)) & LOG_fODelayOffRepeatMask) >> LOG_fODelayOffRepeatShift)
-// Darauffolgendes EIN führt zu
+// Darauffolgendes EIN f├╝hrt zu
 #define ParamLOG_fODelayOffReset                     ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fODelayOffReset)) & LOG_fODelayOffResetMask))
 // Ausgang hat eine Treppenlichtfunktion
 #define ParamLOG_fOStair                             ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fOStair)) & LOG_fOStairMask))
-// Treppenlicht kann verlängert werden
+// Treppenlicht kann verl├ñngert werden
 #define ParamLOG_fORetrigger                         ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fORetrigger)) & LOG_fORetriggerMask))
 // Treppenlicht kann ausgeschaltet werden
 #define ParamLOG_fOStairOff                          ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fOStairOff)) & LOG_fOStairOffMask))
@@ -3396,60 +3331,58 @@
 #define ParamLOG_fORepeat                            ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fORepeat)) & LOG_fORepeatMask))
 // Wiederholungsfilter
 #define ParamLOG_fOOutputFilter                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOutputFilter)) & LOG_fOOutputFilterMask) >> LOG_fOOutputFilterShift)
-// Sendeverhalten für Ausgang
+// Sendeverhalten f├╝r Ausgang
 #define ParamLOG_fOSendOnChange                      ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fOSendOnChange)) & LOG_fOSendOnChangeMask))
-// DPT für Ausgang
+// DPT f├╝r Ausgang
 #define ParamLOG_fODpt                               (knx.paramByte(LOG_ParamCalcIndex(LOG_fODpt)))
-// Wert für EIN senden?
-#define ParamLOG_fOOn                                (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOn)))
-// Wert für EIN senden?
-#define ParamLOG_fOOnBuzzer                          (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnBuzzer)))
-// Wert für EIN senden?
-#define ParamLOG_fOOnLed                             (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnLed)))
-// Wert für EIN senden?
+// Wert f├╝r EIN senden?
 #define ParamLOG_fOOnAll                             (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnAll)))
-//     Wert für EIN senden als
-#define ParamLOG_fOOnTone                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnTone)))
-//     Wert für EIN senden als
+//     Wert f├╝r EIN senden als
 #define ParamLOG_fOOnDpt1                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt1)))
-//     Wert für EIN senden als
+//     Wert f├╝r EIN senden als
 #define ParamLOG_fOOnDpt2                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt2)))
-//     Wert für EIN senden als
+//     Wert f├╝r EIN senden als
 #define ParamLOG_fOOnDpt3Dir                         ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt3Dir)) & LOG_fOOnDpt3DirMask) >> LOG_fOOnDpt3DirShift)
 // 
 #define ParamLOG_fOOnDpt3Dim                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt3Dim)) & LOG_fOOnDpt3DimMask)
-//     Wert für EIN senden als 
+//     Wert f├╝r EIN senden als 
 #define ParamLOG_fOOnDpt5                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt5)))
-//     Wert für EIN senden als
+//     Wert f├╝r EIN senden als
 #define ParamLOG_fOOnDpt5001                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt5001)))
-//     Wert für EIN senden als
+//     Wert f├╝r EIN senden als
 #define ParamLOG_fOOnDpt6                            ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt6)))
-//     Wert für EIN senden als
+//     Wert f├╝r EIN senden als
 #define ParamLOG_fOOnDpt7                            (knx.paramWord(LOG_ParamCalcIndex(LOG_fOOnDpt7)))
-//     Wert für EIN senden als
+//     Wert f├╝r EIN senden als
 #define ParamLOG_fOOnDpt8                            ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fOOnDpt8)))
-//     Wert für EIN senden als
+//     Wert f├╝r EIN senden als
 #define ParamLOG_fOOnDpt9                            (knx.paramFloat(LOG_ParamCalcIndex(LOG_fOOnDpt9), Float_Enc_IEEE754Single))
-//     Wert für EIN senden als
+//     Wert f├╝r EIN senden als
 #define ParamLOG_fOOnDpt12                           (knx.paramInt(LOG_ParamCalcIndex(LOG_fOOnDpt12)))
-//     Wert für EIN senden als
+//     Wert f├╝r EIN senden als
 #define ParamLOG_fOOnDpt13                           ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fOOnDpt13)))
-//     Wert für EIN senden als
+//     Wert f├╝r EIN senden als
 #define ParamLOG_fOOnDpt14                           (knx.paramFloat(LOG_ParamCalcIndex(LOG_fOOnDpt14), Float_Enc_IEEE754Single))
-//     Wert für EIN senden als 
+//     Wert f├╝r EIN senden als 
 #define ParamLOG_fOOnDpt16                           (knx.paramData(LOG_ParamCalcIndex(LOG_fOOnDpt16)))
 #define ParamLOG_fOOnDpt16Str                        (knx.paramString(LOG_ParamCalcIndex(LOG_fOOnDpt16), LOG_fOOnDpt16Length))
-//     Wert für EIN senden als 
+//     Wert f├╝r EIN senden als 
 #define ParamLOG_fOOnDpt17                           (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt17)))
-//     Wert für EIN senden als (3-Byte-RGB)
+//     Wert f├╝r EIN senden als (3-Byte-RGB)
 #define ParamLOG_fOOnRGB                             ((knx.paramInt(LOG_ParamCalcIndex(LOG_fOOnRGB)) & LOG_fOOnRGBMask) >> LOG_fOOnRGBShift)
+//     Status-LED Kanal
+#define ParamLOG_fOOnLedProvider                     (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnLedProvider)) & LOG_fOOnLedProviderMask)
+//     Status-LED Effekt
+#define ParamLOG_fOOnLedEffect                       (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnLedEffect)) & LOG_fOOnLedEffectMask)
+//     Status-LED Effektdauer
+#define ParamLOG_fOOnLedDuration                     (knx.paramWord(LOG_ParamCalcIndex(LOG_fOOnLedDuration)))
 // 
 #define ParamLOG_fOOnPAArea                          ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnPAArea)) & LOG_fOOnPAAreaMask) >> LOG_fOOnPAAreaShift)
 // 
 #define ParamLOG_fOOnPALine                          (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnPALine)) & LOG_fOOnPALineMask)
 // 
 #define ParamLOG_fOOnPADevice                        (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnPADevice)))
-//     Wert für EIN ermitteln als
+//     Wert f├╝r EIN ermitteln als
 #define ParamLOG_fOOnFunction                        (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnFunction)))
 //     Nummer des Kommunikationsobjekts
 #define ParamLOG_fOOnKOKind                          ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnKOKind)) & LOG_fOOnKOKindMask) >> LOG_fOOnKOKindShift)
@@ -3459,62 +3392,60 @@
 #define ParamLOG_fOOnKONumberRel                     ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fOOnKONumberRel)))
 //     DPT des Kommunikationsobjekts
 #define ParamLOG_fOOnKODpt                           (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnKODpt)))
-//     Wert für EIN an ein zusätzliches    KO senden?
+//     Wert f├╝r EIN an ein zus├ñtzliches    KO senden?
 #define ParamLOG_fOOnKOSend                          ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnKOSend)) & LOG_fOOnKOSendMask) >> LOG_fOOnKOSendShift)
-//         Nummer des zusätzlichen KO
+//         Nummer des zus├ñtzlichen KO
 #define ParamLOG_fOOnKOSendNumber                    (knx.paramWord(LOG_ParamCalcIndex(LOG_fOOnKOSendNumber)))
-//         Nummer des zusätzlichen KO
+//         Nummer des zus├ñtzlichen KO
 #define ParamLOG_fOOnKOSendNumberRel                 ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fOOnKOSendNumberRel)))
-// Wert für AUS senden?
-#define ParamLOG_fOOff                               (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOff)))
-// Wert für AUS senden?
-#define ParamLOG_fOOffBuzzer                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffBuzzer)))
-// Wert für AUS senden?
-#define ParamLOG_fOOffLed                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffLed)))
-// Wert für AUS senden?
+// Wert f├╝r AUS senden?
 #define ParamLOG_fOOffAll                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffAll)))
-//     Wert für AUS senden als
-#define ParamLOG_fOOffTone                           (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffTone)))
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt1                           (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt1)))
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt2                           (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt2)))
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt3Dir                        ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt3Dir)) & LOG_fOOffDpt3DirMask) >> LOG_fOOffDpt3DirShift)
 // 
 #define ParamLOG_fOOffDpt3Dim                        (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt3Dim)) & LOG_fOOffDpt3DimMask)
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt5                           (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt5)))
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt5001                        (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt5001)))
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt6                           ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt6)))
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt7                           (knx.paramWord(LOG_ParamCalcIndex(LOG_fOOffDpt7)))
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt8                           ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fOOffDpt8)))
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt9                           (knx.paramFloat(LOG_ParamCalcIndex(LOG_fOOffDpt9), Float_Enc_IEEE754Single))
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt12                          (knx.paramInt(LOG_ParamCalcIndex(LOG_fOOffDpt12)))
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt13                          ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fOOffDpt13)))
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt14                          (knx.paramFloat(LOG_ParamCalcIndex(LOG_fOOffDpt14), Float_Enc_IEEE754Single))
-//     Wert für AUS senden als
+//     Wert f├╝r AUS senden als
 #define ParamLOG_fOOffDpt16                          (knx.paramData(LOG_ParamCalcIndex(LOG_fOOffDpt16)))
 #define ParamLOG_fOOffDpt16Str                       (knx.paramString(LOG_ParamCalcIndex(LOG_fOOffDpt16), LOG_fOOffDpt16Length))
-//     Wert für AUS senden als 
+//     Wert f├╝r AUS senden als 
 #define ParamLOG_fOOffDpt17                          (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt17)))
-//     Wert für AUS senden als (3-Byte-RGB)
+//     Wert f├╝r AUS senden als (3-Byte-RGB)
 #define ParamLOG_fOOffRGB                            ((knx.paramInt(LOG_ParamCalcIndex(LOG_fOOffRGB)) & LOG_fOOffRGBMask) >> LOG_fOOffRGBShift)
+//     Status-LED-Kanal
+#define ParamLOG_fOOffLedProvider                    (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffLedProvider)) & LOG_fOOffLedProviderMask)
+//     Status-LED Effekt
+#define ParamLOG_fOOffLedEffect                      (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffLedEffect)) & LOG_fOOffLedEffectMask)
+//     Status-LED Effektdauer
+#define ParamLOG_fOOffLedDuration                    (knx.paramWord(LOG_ParamCalcIndex(LOG_fOOffLedDuration)))
 // 
 #define ParamLOG_fOOffPAArea                         ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffPAArea)) & LOG_fOOffPAAreaMask) >> LOG_fOOffPAAreaShift)
 // 
 #define ParamLOG_fOOffPALine                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffPALine)) & LOG_fOOffPALineMask)
 // 
 #define ParamLOG_fOOffPADevice                       (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffPADevice)))
-//     Wert für AUS ermitteln als
+//     Wert f├╝r AUS ermitteln als
 #define ParamLOG_fOOffFunction                       (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffFunction)))
 //     Nummer des Kommunikationsobjekts
 #define ParamLOG_fOOffKOKind                         ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffKOKind)) & LOG_fOOffKOKindMask) >> LOG_fOOffKOKindShift)
@@ -3524,11 +3455,11 @@
 #define ParamLOG_fOOffKONumberRel                    ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fOOffKONumberRel)))
 //     DPT des Kommunikationsobjekts
 #define ParamLOG_fOOffKODpt                          (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffKODpt)))
-//     Wert für AUS an ein zusätzliches    KO senden?
+//     Wert f├╝r AUS an ein zus├ñtzliches    KO senden?
 #define ParamLOG_fOOffKOSend                         ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffKOSend)) & LOG_fOOffKOSendMask) >> LOG_fOOffKOSendShift)
-//         Nummer des zusätzlichen KO
+//         Nummer des zus├ñtzlichen KO
 #define ParamLOG_fOOffKOSendNumber                   (knx.paramWord(LOG_ParamCalcIndex(LOG_fOOffKOSendNumber)))
-//         Nummer des zusätzlichen KO
+//         Nummer des zus├ñtzlichen KO
 #define ParamLOG_fOOffKOSendNumberRel                ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fOOffKOSendNumberRel)))
 
 // deprecated
@@ -3553,15 +3484,15 @@
 // Ausgang
 #define KoLOG_KOfO                                (knx.getGroupObject(LOG_KoCalcNumber(LOG_KoKOfO)))
 
-#define FCB_VisibleChannels                     11281      // uint8_t
+#define FCB_VisibleChannels                     11362      // uint8_t
 
-// Verfügbare Kanäle
+// Verf├╝gbare Kan├ñle
 #define ParamFCB_VisibleChannels                     (knx.paramByte(FCB_VisibleChannels))
 
 #define FCB_ChannelCount 15
 
 // Parameter per channel
-#define FCB_ParamBlockOffset 11282
+#define FCB_ParamBlockOffset 11363
 #define FCB_ParamBlockSize 81
 #define FCB_ParamCalcIndex(index) (index + FCB_ParamBlockOffset + _channelIndex * FCB_ParamBlockSize)
 
@@ -4119,7 +4050,7 @@
 #define ParamFCB_CHLogicBehavKo8                     ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHLogicBehavKo8)) & FCB_CHLogicBehavKo8Mask) >> FCB_CHLogicBehavKo8Shift)
 // Prior-Wahrscheinlichkeit
 #define ParamFCB_CHBayesianPrior                     (knx.paramByte(FCB_ParamCalcIndex(FCB_CHBayesianPrior)))
-// Schwellwert für binären Ausgang
+// Schwellwert f├╝r bin├ñren Ausgang
 #define ParamFCB_CHBayesianThreshold                 (knx.paramByte(FCB_ParamCalcIndex(FCB_CHBayesianThreshold)))
 // Wahrscheinlichkeits-Ausgang aktivieren
 #define ParamFCB_CHBayesianEnableProbOutput          ((bool)(knx.paramByte(FCB_ParamCalcIndex(FCB_CHBayesianEnableProbOutput)) & FCB_CHBayesianEnableProbOutputMask))
@@ -4233,11 +4164,11 @@
 #define ParamFCB_CHPrioOutByteKo8                    (knx.paramByte(FCB_ParamCalcIndex(FCB_CHPrioOutByteKo8)))
 // Ausgangswert Szenennummer
 #define ParamFCB_CHPrioOutSceneKo8                   (knx.paramByte(FCB_ParamCalcIndex(FCB_CHPrioOutSceneKo8)))
-// Ausgangswert wenn alle Eingänge AUS
+// Ausgangswert wenn alle Eing├ñnge AUS
 #define ParamFCB_CHPrioOutPDefault                   (knx.paramByte(FCB_ParamCalcIndex(FCB_CHPrioOutPDefault)))
-// Ausgangswert wenn alle Eingänge AUS
+// Ausgangswert wenn alle Eing├ñnge AUS
 #define ParamFCB_CHPrioOutByteDefault                (knx.paramByte(FCB_ParamCalcIndex(FCB_CHPrioOutByteDefault)))
-// Ausgangswert Szenennummer wenn alle Eingänge AUS
+// Ausgangswert Szenennummer wenn alle Eing├ñnge AUS
 #define ParamFCB_CHPrioOutSceneDefault               (knx.paramByte(FCB_ParamCalcIndex(FCB_CHPrioOutSceneDefault)))
 // Initialisierung
 #define ParamFCB_CHPrioBehavKo0                      ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHPrioBehavKo0)) & FCB_CHPrioBehavKo0Mask) >> FCB_CHPrioBehavKo0Shift)
@@ -4259,7 +4190,7 @@
 #define ParamFCB_CHPrioBehavKo8                      ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHPrioBehavKo8)) & FCB_CHPrioBehavKo8Mask) >> FCB_CHPrioBehavKo8Shift)
 // Sendeverhalten
 #define ParamFCB_CHPrioBehavOut                      ((bool)(knx.paramByte(FCB_ParamCalcIndex(FCB_CHPrioBehavOut)) & FCB_CHPrioBehavOutMask))
-// Gewichtung der Eingänge
+// Gewichtung der Eing├ñnge
 #define ParamFCB_CHAggWeight                         ((bool)(knx.paramByte(FCB_ParamCalcIndex(FCB_CHAggWeight)) & FCB_CHAggWeightMask))
 // Funktion
 #define ParamFCB_CHAggType                           (knx.paramByte(FCB_ParamCalcIndex(FCB_CHAggType)) & FCB_CHAggTypeMask)
@@ -4285,7 +4216,7 @@
 #define ParamFCB_CHAggBehavOut                       ((bool)(knx.paramByte(FCB_ParamCalcIndex(FCB_CHAggBehavOut)) & FCB_CHAggBehavOutMask))
 // Rundungsmodus
 #define ParamFCB_CHAggOutputRounding                 ((bool)(knx.paramByte(FCB_ParamCalcIndex(FCB_CHAggOutputRounding)) & FCB_CHAggOutputRoundingMask))
-// Bei Überschreiten des Wertebereichs
+// Bei ├£berschreiten des Wertebereichs
 #define ParamFCB_CHAggOutputOverflow                 ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHAggOutputOverflow)) & FCB_CHAggOutputOverflowMask) >> FCB_CHAggOutputOverflowShift)
 // Wertetype / DPT
 #define ParamFCB_CHAggInputDpt                       (knx.paramByte(FCB_ParamCalcIndex(FCB_CHAggInputDpt)))
@@ -4317,9 +4248,9 @@
 #define ParamFCB_CHCountDownDelayTime                (knx.paramWord(FCB_ParamCalcIndex(FCB_CHCountDownDelayTime)) & FCB_CHCountDownDelayTimeMask)
 // Ablaufzeit (in Millisekunden)
 #define ParamFCB_CHCountDownDelayTimeMS              (paramDelay(knx.paramWord(FCB_ParamCalcIndex(FCB_CHCountDownDelayTime))))
-// Laufzeit Verringern / Erhöhen
+// Laufzeit Verringern / Erh├Âhen
 #define ParamFCB_CHCountDownTimeOffset               ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHCountDownTimeOffset)) & FCB_CHCountDownTimeOffsetMask) >> FCB_CHCountDownTimeOffsetShift)
-// Auslöser / Ende
+// Ausl├Âser / Ende
 #define ParamFCB_CHCountDownTrigger                  (knx.paramByte(FCB_ParamCalcIndex(FCB_CHCountDownTrigger)) & FCB_CHCountDownTriggerMask)
 // Standard
 #define ParamFCB_CHCountDownTemplate                 (knx.paramData(FCB_ParamCalcIndex(FCB_CHCountDownTemplate)))
@@ -4336,10 +4267,10 @@
 // Pause
 #define ParamFCB_CHCountDownTextPause                (knx.paramData(FCB_ParamCalcIndex(FCB_CHCountDownTextPause)))
 #define ParamFCB_CHCountDownTextPauseStr             (knx.paramString(FCB_ParamCalcIndex(FCB_CHCountDownTextPause), FCB_CHCountDownTextPauseLength))
-// Läuft
+// L├ñuft
 #define ParamFCB_CHCountDownTextRun                  (knx.paramData(FCB_ParamCalcIndex(FCB_CHCountDownTextRun)))
 #define ParamFCB_CHCountDownTextRunStr               (knx.paramString(FCB_ParamCalcIndex(FCB_CHCountDownTextRun), FCB_CHCountDownTextRunLength))
-// Zähler
+// Z├ñhler
 #define ParamFCB_CHCountDownCounterKo                ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHCountDownCounterKo)) & FCB_CHCountDownCounterKoMask) >> FCB_CHCountDownCounterKoShift)
 // Text
 #define ParamFCB_CHCountDownTextKo                   ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHCountDownTextKo)) & FCB_CHCountDownTextKoMask) >> FCB_CHCountDownTextKoShift)
@@ -4354,7 +4285,7 @@
 #define ParamFCB_CHCountDownMaxDelayTimeMS           (paramDelay(knx.paramWord(FCB_ParamCalcIndex(FCB_CHCountDownMaxDelayTime))))
 // Werttype
 #define ParamFCB_CHMonitoringValueType               (knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringValueType)))
-// Zeitüberwachung aktiv
+// Zeit├╝berwachung aktiv
 #define ParamFCB_CHMonitoringWDEnabled               ((bool)(knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringWDEnabled)) & FCB_CHMonitoringWDEnabledMask))
 // Watchdog Zeitbasis
 #define ParamFCB_CHMonitoringWDTTimeoutDelayBase     ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringWDTTimeoutDelayBase)) & FCB_CHMonitoringWDTTimeoutDelayBaseMask) >> FCB_CHMonitoringWDTTimeoutDelayBaseShift)
@@ -4362,7 +4293,7 @@
 #define ParamFCB_CHMonitoringWDTTimeoutDelayTime     (knx.paramWord(FCB_ParamCalcIndex(FCB_CHMonitoringWDTTimeoutDelayTime)) & FCB_CHMonitoringWDTTimeoutDelayTimeMask)
 // Watchdog Zeit (in Millisekunden)
 #define ParamFCB_CHMonitoringWDTTimeoutDelayTimeMS   (paramDelay(knx.paramWord(FCB_ParamCalcIndex(FCB_CHMonitoringWDTTimeoutDelayTime))))
-// Verhalten bei Zeitüberschreitung
+// Verhalten bei Zeit├╝berschreitung
 #define ParamFCB_CHMonitoringWDBehavior              ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringWDBehavior)) & FCB_CHMonitoringWDBehaviorMask) >> FCB_CHMonitoringWDBehaviorShift)
 // Verhalten beim Start
 #define ParamFCB_CHMonitoringStart                   ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringStart)) & FCB_CHMonitoringStartMask) >> FCB_CHMonitoringStartShift)
@@ -4391,47 +4322,47 @@
 #define ParamFCB_CHMonitoringWDDpt16Str              (knx.paramString(FCB_ParamCalcIndex(FCB_CHMonitoringWDDpt16), FCB_CHMonitoringWDDpt16Length))
 // Verhalten bei Wertunterschreitung
 #define ParamFCB_CHMonitoringMin                     ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringMin)) & FCB_CHMonitoringMinMask) >> FCB_CHMonitoringMinShift)
-// Minimaler zulässiger Wert
+// Minimaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMinDpt1                 ((bool)(knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringMinDpt1)) & FCB_CHMonitoringMinDpt1Mask))
-// Minimaler zulässiger Wert
+// Minimaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMinDpt5                 (knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringMinDpt5)))
-// Minimaler zulässiger Wert
+// Minimaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMinDpt5001              (knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringMinDpt5001)))
-// Minimaler zulässiger Wert
+// Minimaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMinDpt6                 ((int8_t)knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringMinDpt6)))
-// Minimaler zulässiger Wert
+// Minimaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMinDpt7                 (knx.paramWord(FCB_ParamCalcIndex(FCB_CHMonitoringMinDpt7)))
-// Minimaler zulässiger Wert
+// Minimaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMinDpt8                 ((int16_t)knx.paramWord(FCB_ParamCalcIndex(FCB_CHMonitoringMinDpt8)))
-// Minimaler zulässiger Wert
+// Minimaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMinDpt9                 (knx.paramFloat(FCB_ParamCalcIndex(FCB_CHMonitoringMinDpt9), Float_Enc_IEEE754Single))
-// Minimaler zulässiger Wert
+// Minimaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMinDpt12                (knx.paramInt(FCB_ParamCalcIndex(FCB_CHMonitoringMinDpt12)))
-// Minimaler zulässiger Wert
+// Minimaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMinDpt13                ((int32_t)knx.paramInt(FCB_ParamCalcIndex(FCB_CHMonitoringMinDpt13)))
-// Minimaler zulässiger Wert
+// Minimaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMinDpt14                (knx.paramFloat(FCB_ParamCalcIndex(FCB_CHMonitoringMinDpt14), Float_Enc_IEEE754Single))
-// Verhalten bei Wertüberschreitung
+// Verhalten bei Wert├╝berschreitung
 #define ParamFCB_CHMonitoringMax                     ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringMax)) & FCB_CHMonitoringMaxMask) >> FCB_CHMonitoringMaxShift)
-// Maximaler zulässiger Wert
+// Maximaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMaxDpt1                 ((bool)(knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringMaxDpt1)) & FCB_CHMonitoringMaxDpt1Mask))
-// Maximaler zulässiger Wert
+// Maximaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMaxDpt5                 (knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringMaxDpt5)))
-// Maximaler zulässiger Wert
+// Maximaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMaxDpt5001              (knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringMaxDpt5001)))
-// Maximaler zulässiger Wert
+// Maximaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMaxDpt6                 ((int8_t)knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringMaxDpt6)))
-// Maximaler zulässiger Wert
+// Maximaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMaxDpt7                 (knx.paramWord(FCB_ParamCalcIndex(FCB_CHMonitoringMaxDpt7)))
-// Maximaler zulässiger Wert
+// Maximaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMaxDpt8                 ((int16_t)knx.paramWord(FCB_ParamCalcIndex(FCB_CHMonitoringMaxDpt8)))
-// Maximaler zulässiger Wert
+// Maximaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMaxDpt9                 (knx.paramFloat(FCB_ParamCalcIndex(FCB_CHMonitoringMaxDpt9), Float_Enc_IEEE754Single))
-// Maximaler zulässiger Wert
+// Maximaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMaxDpt12                (knx.paramInt(FCB_ParamCalcIndex(FCB_CHMonitoringMaxDpt12)))
-// Maximaler zulässiger Wert
+// Maximaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMaxDpt13                ((int32_t)knx.paramInt(FCB_ParamCalcIndex(FCB_CHMonitoringMaxDpt13)))
-// Maximaler zulässiger Wert
+// Maximaler zul├ñssiger Wert
 #define ParamFCB_CHMonitoringMaxDpt14                (knx.paramFloat(FCB_ParamCalcIndex(FCB_CHMonitoringMaxDpt14), Float_Enc_IEEE754Single))
 // Sendeverhalten
 #define ParamFCB_CHMonitoringOutput                  ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHMonitoringOutput)) & FCB_CHMonitoringOutputMask) >> FCB_CHMonitoringOutputShift)
@@ -4465,11 +4396,11 @@
 #define ParamFCB_CHBlinkerBreakWithoutBreak          ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHBlinkerBreakWithoutBreak)) & FCB_CHBlinkerBreakWithoutBreakMask) >> FCB_CHBlinkerBreakWithoutBreakShift)
 // Ausgang
 #define ParamFCB_CHBlinkerOutputDpt                  (knx.paramByte(FCB_ParamCalcIndex(FCB_CHBlinkerOutputDpt)))
-// Wert für EIN
+// Wert f├╝r EIN
 #define ParamFCB_CHBlinkerOnPercentage               (knx.paramByte(FCB_ParamCalcIndex(FCB_CHBlinkerOnPercentage)))
-// Wert für AUS
+// Wert f├╝r AUS
 #define ParamFCB_CHBlinkerOffPercentage              (knx.paramByte(FCB_ParamCalcIndex(FCB_CHBlinkerOffPercentage)))
-// Anzahl der Blinkvorgänge
+// Anzahl der Blinkvorg├ñnge
 #define ParamFCB_CHBlinkerCount                      (knx.paramByte(FCB_ParamCalcIndex(FCB_CHBlinkerCount)))
 // Objekt zum Starten mit Anzahl
 #define ParamFCB_CHBlinkerStartAnzahl                ((bool)(knx.paramByte(FCB_ParamCalcIndex(FCB_CHBlinkerStartAnzahl)) & FCB_CHBlinkerStartAnzahlMask))
@@ -4497,11 +4428,11 @@
 #define ParamFCB_CHFormatDecimalPlaces1              (knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatDecimalPlaces1)) & FCB_CHFormatDecimalPlaces1Mask)
 // Stellenanzahl
 #define ParamFCB_CHFormatSignificant1                (knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatSignificant1)) & FCB_CHFormatSignificant1Mask)
-// Auffüllen
+// Auff├╝llen
 #define ParamFCB_CHFormatFillupPrecomma1             ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatFillupPrecomma1)) & FCB_CHFormatFillupPrecomma1Mask) >> FCB_CHFormatFillupPrecomma1Shift)
-// Auffüllen
+// Auff├╝llen
 #define ParamFCB_CHFormatFillupMode1                 ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatFillupMode1)) & FCB_CHFormatFillupMode1Mask) >> FCB_CHFormatFillupMode1Shift)
-// Auffüllen nach Komma
+// Auff├╝llen nach Komma
 #define ParamFCB_CHFormatFillupAfterComma1           (knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatFillupAfterComma1)) & FCB_CHFormatFillupAfterComma1Mask)
 // Rundungsart
 #define ParamFCB_CHFCBFormatRoundType1               ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHFCBFormatRoundType1)) & FCB_CHFCBFormatRoundType1Mask) >> FCB_CHFCBFormatRoundType1Shift)
@@ -4521,11 +4452,11 @@
 #define ParamFCB_CHFormatDecimalPlaces2              (knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatDecimalPlaces2)) & FCB_CHFormatDecimalPlaces2Mask)
 // Stellenanzahl
 #define ParamFCB_CHFormatSignificant2                (knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatSignificant2)) & FCB_CHFormatSignificant2Mask)
-// Auffüllen
+// Auff├╝llen
 #define ParamFCB_CHFormatFillupPrecomma2             ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatFillupPrecomma2)) & FCB_CHFormatFillupPrecomma2Mask) >> FCB_CHFormatFillupPrecomma2Shift)
-// Auffüllen
+// Auff├╝llen
 #define ParamFCB_CHFormatFillupMode2                 ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatFillupMode2)) & FCB_CHFormatFillupMode2Mask) >> FCB_CHFormatFillupMode2Shift)
-// Auffüllen nach Komma
+// Auff├╝llen nach Komma
 #define ParamFCB_CHFormatFillupAfterComma2           (knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatFillupAfterComma2)) & FCB_CHFormatFillupAfterComma2Mask)
 // Rundungsart
 #define ParamFCB_CHFCBFormatRoundType2               ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHFCBFormatRoundType2)) & FCB_CHFCBFormatRoundType2Mask) >> FCB_CHFCBFormatRoundType2Shift)
@@ -4545,11 +4476,11 @@
 #define ParamFCB_CHFormatDecimalPlaces3              (knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatDecimalPlaces3)) & FCB_CHFormatDecimalPlaces3Mask)
 // Stellenanzahl
 #define ParamFCB_CHFormatSignificant3                (knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatSignificant3)) & FCB_CHFormatSignificant3Mask)
-// Auffüllen
+// Auff├╝llen
 #define ParamFCB_CHFormatFillupPrecomma3             ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatFillupPrecomma3)) & FCB_CHFormatFillupPrecomma3Mask) >> FCB_CHFormatFillupPrecomma3Shift)
-// Auffüllen
+// Auff├╝llen
 #define ParamFCB_CHFormatFillupMode3                 ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatFillupMode3)) & FCB_CHFormatFillupMode3Mask) >> FCB_CHFormatFillupMode3Shift)
-// Auffüllen nach Komma
+// Auff├╝llen nach Komma
 #define ParamFCB_CHFormatFillupAfterComma3           (knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatFillupAfterComma3)) & FCB_CHFormatFillupAfterComma3Mask)
 // Rundungsart
 #define ParamFCB_CHFCBFormatRoundType3               ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHFCBFormatRoundType3)) & FCB_CHFCBFormatRoundType3Mask) >> FCB_CHFCBFormatRoundType3Shift)
@@ -4569,11 +4500,11 @@
 #define ParamFCB_CHFormatDecimalPlaces4              (knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatDecimalPlaces4)) & FCB_CHFormatDecimalPlaces4Mask)
 // Stellenanzahl
 #define ParamFCB_CHFormatSignificant4                (knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatSignificant4)) & FCB_CHFormatSignificant4Mask)
-// Auffüllen
+// Auff├╝llen
 #define ParamFCB_CHFormatFillupPrecomma4             ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatFillupPrecomma4)) & FCB_CHFormatFillupPrecomma4Mask) >> FCB_CHFormatFillupPrecomma4Shift)
-// Auffüllen
+// Auff├╝llen
 #define ParamFCB_CHFormatFillupMode4                 ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatFillupMode4)) & FCB_CHFormatFillupMode4Mask) >> FCB_CHFormatFillupMode4Shift)
-// Auffüllen nach Komma
+// Auff├╝llen nach Komma
 #define ParamFCB_CHFormatFillupAfterComma4           (knx.paramByte(FCB_ParamCalcIndex(FCB_CHFormatFillupAfterComma4)) & FCB_CHFormatFillupAfterComma4Mask)
 // Rundungsart
 #define ParamFCB_CHFCBFormatRoundType4               ((knx.paramByte(FCB_ParamCalcIndex(FCB_CHFCBFormatRoundType4)) & FCB_CHFCBFormatRoundType4Mask) >> FCB_CHFCBFormatRoundType4Shift)
@@ -4633,7 +4564,7 @@
 #define BASE_KommentarModuleModuleParamSize 0
 #define BASE_KommentarModuleSubmodulesParamSize 0
 #define BASE_KommentarModuleParamSize 0
-#define BASE_KommentarModuleParamOffset 12497
+#define BASE_KommentarModuleParamOffset 12578
 #define BASE_KommentarModuleCalcIndex(index, m1) (index + BASE_KommentarModuleParamOffset + _channelIndex * BASE_KommentarModuleCount * BASE_KommentarModuleParamSize + m1 * BASE_KommentarModuleParamSize)
 
 
