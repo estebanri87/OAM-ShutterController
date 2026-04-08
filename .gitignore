@@ -9,3 +9,4 @@ ShutterController.baggages
 release/*
 *.knxprod
 include/versions.h
+Archiv Build/
